@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portafolio Académico – Gerencia de Sistemas de Información</title>
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Fuentes modernas -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+  <!-- Iconos Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+<!-- ========================================
+     BARRA DE NAVEGACIÓN SUPERIOR
+======================================== -->
+<nav class="navbar" id="navbar">
+  <div class="nav-brand">
+    <div class="nav-logo">
+      <i class="fas fa-graduation-cap"></i>
+    </div>
+    <div class="nav-title">
+      <span class="nav-course">GSI · UPLA</span>
+      <span class="nav-sub">Portafolio Académico</span>
+    </div>
+  </div>
+
+  <!-- Buscador -->
+  <div class="nav-search">
+    <i class="fas fa-search"></i>
+    <input type="text" id="searchInput" placeholder="Buscar semana o tema…" autocomplete="off" />
+    <div class="search-results" id="searchResults"></div>
+  </div>
+
+  <div class="nav-actions">
+    <!-- Progreso -->
+    <div class="progress-pill" title="Progreso del curso">
+      <i class="fas fa-chart-line"></i>
+      <span id="progressLabel">16 semanas</span>
+    </div>
+    <!-- Modo oscuro -->
+    <button class="theme-toggle" id="themeToggle" title="Cambiar tema">
+      <i class="fas fa-moon" id="themeIcon"></i>
+    </button>
+    <!-- Menú hamburguesa (móvil) -->
+    <button class="hamburger" id="hamburger" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Menú móvil desplegable -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#inicio"><i class="fas fa-home"></i> Inicio</a>
+  <a href="#unidad1"><i class="fas fa-cloud"></i> Unidad I</a>
+  <a href="#unidad2"><i class="fas fa-briefcase"></i> Unidad II</a>
+  <a href="#unidad3"><i class="fas fa-server"></i> Unidad III</a>
+  <a href="#unidad4"><i class="fas fa-code"></i> Unidad IV</a>
+</div>
+
+<!-- ========================================
+     BARRA LATERAL (escritorio)
+======================================== -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <i class="fas fa-book-open"></i>
+    <span>Navegación</span>
+  </div>
+  <nav class="sidebar-nav">
+    <a href="#inicio" class="sidebar-link active"><i class="fas fa-home"></i> Inicio</a>
+
+    <div class="sidebar-section">Unidad I · Nube</div>
+    <a href="#semana1" class="sidebar-link sub"><i class="fas fa-circle-dot"></i> Semana 1</a>
+    <a href="#semana2" class="sidebar-link sub"><i class="fas fa-circle-dot"></i> Semana 2</a>
+    <a href="#semana3" class="sidebar-link sub"><i class="fas fa-circle-dot"></i> Semana 3</a>
+    <a href="#semana4" class="sidebar-link sub"><i class="fas fa-circle-dot"></i> Semana 4</a>
+
+    <div class="sidebar-section">Unidad II · Empresarial</div>
+    <a href="#semana5" class="sidebar-link sub"><i class="fas fa-circle-dot"></i> Semana 5</a>
+    <a href="#semana6" class="sidebar-link sub"><i class="fas fa-circle-dot"></i> Semana 6</a>
+    <a href="#semana7" class="sidebar-link sub"><i class="fas fa-circle-dot"></i> Semana 7</a>
+    <a href="#semana8" class="sidebar-link sub"><i class="fas fa-circle-dot"></i> Semana 8</a>
+
+    <div class="sidebar-section">Unidad III · Infraestructura</div>
+    <a href="#semana9" class="sidebar-link sub"><i class="fas fa-circle-dot"></i> Semana 9</a>
+    <a href="#semana10" class="sidebar-link sub"><i class="fas fa-circle-dot"></i> Semana 10</a>
+    <a href="#semana11" class="sidebar-link sub"><i class="fas fa-circle-dot"></i> Semana 11</a>
+    <a href="#semana12" class="sidebar-link sub"><i class="fas fa-circle-dot"></i> Semana 12</a>
+
+    <div class="sidebar-section">Unidad IV · Desarrollo</div>
+    <a href="#semana13" class="sidebar-link sub"><i class="fas fa-circle-dot"></i> Semana 13</a>
+    <a href="#semana14" class="sidebar-link sub"><i class="fas fa-circle-dot"></i> Semana 14</a>
+    <a href="#semana15" class="sidebar-link sub"><i class="fas fa-circle-dot"></i> Semana 15</a>
+    <a href="#semana16" class="sidebar-link sub"><i class="fas fa-circle-dot"></i> Semana 16</a>
+  </nav>
+
+  <!-- Mini progreso lateral -->
+  <div class="sidebar-progress">
+    <div class="sp-label"><i class="fas fa-trophy"></i> Progreso</div>
+    <div class="sp-bar"><div class="sp-fill" id="sidebarFill"></div></div>
+    <span id="sidebarPercent">0%</span>
+  </div>
+</aside>
+
+<!-- ========================================
+     CONTENIDO PRINCIPAL
+======================================== -->
+<main class="main-content" id="mainContent">
+
+  <!-- ── HERO / INICIO ── -->
+  <section class="hero" id="inicio">
+    <div class="hero-particles" id="particles"></div>
+    <div class="hero-inner">
+      <div class="hero-badge">
+        <i class="fas fa-university"></i>
+        Universidad Peruana Los Andes · 2026-I
+      </div>
+      <h1 class="hero-title">
+        Portafolio Académico<br/>
+        <span class="gradient-text">de Evidencias</span>
+      </h1>
+      <p class="hero-course">
+        <i class="fas fa-laptop-code"></i>
+        Gerencia de Sistemas de Información
+      </p>
+      <div class="hero-meta">
+        <div class="meta-chip"><i class="fas fa-graduation-cap"></i> Ing. de Sistemas y Computación</div>
+        <div class="meta-chip"><i class="fas fa-chalkboard-teacher"></i> Dr. Magno Teófilo Baldeón Tovar</div>
+        <div class="meta-chip"><i class="fas fa-calendar-alt"></i> Semestre 2026-I</div>
+      </div>
+
+      <!-- Tarjeta estudiante -->
+      <div class="student-card">
+        <div class="sc-avatar">
+          <i class="fas fa-user-graduate"></i>
+        </div>
+        <div class="sc-info">
+          <div class="sc-name">Estudiante: [Tu Nombre Completo]</div>
+          <div class="sc-desc">
+            Estudiante de Ingeniería de Sistemas y Computación comprometido con el aprendizaje de las tecnologías de información y su aplicación en la gestión empresarial moderna. Este portafolio reúne las evidencias de aprendizaje desarrolladas a lo largo del curso, demostrando el dominio de competencias en administración en la nube, aplicaciones empresariales, infraestructura de TI y desarrollo de sistemas de información.
+          </div>
+          <div class="sc-tags">
+            <span><i class="fas fa-cloud"></i> Cloud Computing</span>
+            <span><i class="fas fa-database"></i> Bases de Datos</span>
+            <span><i class="fas fa-cogs"></i> ERP / CRM</span>
+            <span><i class="fas fa-shield-alt"></i> Gobierno TI</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progreso del curso -->
+      <div class="course-progress-box">
+        <div class="cpb-header">
+          <span><i class="fas fa-tasks"></i> Progreso General del Curso</span>
+          <span class="cpb-pct" id="heroPct">0%</span>
+        </div>
+        <div class="cpb-bar">
+          <div class="cpb-fill" id="heroFill"></div>
+        </div>
+        <div class="cpb-units">
+          <span class="unit-dot u1" title="Unidad I">I</span>
+          <span class="unit-dot u2" title="Unidad II">II</span>
+          <span class="unit-dot u3" title="Unidad III">III</span>
+          <span class="unit-dot u4" title="Unidad IV">IV</span>
+        </div>
+      </div>
+
+      <!-- Acceso rápido a unidades -->
+      <div class="unit-quick">
+        <a href="#unidad1" class="uq-card">
+          <i class="fas fa-cloud"></i>
+          <span>Unidad I</span>
+          <small>Administración en la Nube</small>
+        </a>
+        <a href="#unidad2" class="uq-card">
+          <i class="fas fa-briefcase"></i>
+          <span>Unidad II</span>
+          <small>Aplicaciones Empresariales</small>
+        </a>
+        <a href="#unidad3" class="uq-card">
+          <i class="fas fa-server"></i>
+          <span>Unidad III</span>
+          <small>Infraestructura de TI</small>
+        </a>
+        <a href="#unidad4" class="uq-card">
+          <i class="fas fa-code"></i>
+          <span>Unidad IV</span>
+          <small>Desarrollo de Sistemas</small>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       UNIDAD I
+  ══════════════════════════════════════ -->
+  <section class="unit-section" id="unidad1">
+    <div class="unit-header u1-header">
+      <div class="unit-icon"><i class="fas fa-cloud"></i></div>
+      <div>
+        <div class="unit-label">Unidad I</div>
+        <h2 class="unit-title">Administración en la Nube</h2>
+        <p class="unit-desc">Fundamentos de los sistemas de información y computación en la nube, incluyendo modelos de despliegue e infraestructura de TI.</p>
+      </div>
+      <div class="unit-weeks-badge">4 semanas</div>
+    </div>
+    <div class="weeks-grid">
+
+      <!-- SEMANA 1 -->
+      <div class="week-card" id="semana1" data-keywords="información empresa sistemas tipos componentes semana 1">
+        <div class="wc-header" onclick="toggleWeek(this)">
+          <div class="wc-num">S1</div>
+          <div class="wc-info">
+            <h3>Semana 1 – La Información en la Empresa</h3>
+            <div class="wc-tags">
+              <span>Sistemas de Información</span>
+              <span>Tipos</span>
+              <span>Componentes</span>
+            </div>
+          </div>
+          <div class="wc-meta">
+            <span class="wc-date"><i class="fas fa-calendar"></i> Mar 2026</span>
+            <i class="fas fa-chevron-down wc-arrow"></i>
+          </div>
+        </div>
+        <div class="wc-body">
+          <div class="evidence-block">
+            <div class="ev-title"><i class="fas fa-file-alt"></i> Mapa Conceptual: Sistemas de Información</div>
+            <p class="ev-desc">Elaboración de un mapa conceptual que integra los conceptos de información empresarial, diferenciando datos, información y conocimiento. Se analizaron los sistemas de información transaccionales (TPS), de soporte de decisiones (DSS), ejecutivos (EIS) y de gestión (MIS).</p>
+            <div class="ev-gallery">
+              <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Agregar imagen del mapa conceptual</span></div>
+              <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Agregar infografía SI</span></div>
+            </div>
+            <div class="ev-actions">
+              <button class="btn-pdf" onclick="openPDF('semana1-evidencia1.pdf')"><i class="fas fa-file-pdf"></i> Ver PDF</button>
+              <a class="btn-download" href="#" download><i class="fas fa-download"></i> Descargar</a>
+              <a class="btn-link" href="https://www.ibm.com/topics/information-systems" target="_blank"><i class="fas fa-external-link-alt"></i> Fuente externa</a>
+            </div>
+          </div>
+          <div class="evidence-block">
+            <div class="ev-title"><i class="fas fa-tasks"></i> Cuadro Comparativo: Tipos de Sistemas de Información</div>
+            <p class="ev-desc">Análisis comparativo de los distintos tipos de SI según su alcance organizacional: operativo, táctico y estratégico. Se identificaron características, usuarios, ejemplos reales y tecnologías asociadas a cada tipo, como SAP para ERP y Salesforce para CRM.</p>
+            <div class="ev-gallery">
+              <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Agregar tabla comparativa</span></div>
+            </div>
+            <div class="ev-actions">
+              <button class="btn-pdf" onclick="openPDF('semana1-evidencia2.pdf')"><i class="fas fa-file-pdf"></i> Ver PDF</button>
+              <a class="btn-download" href="#" download><i class="fas fa-download"></i> Descargar</a>
+            </div>
+          </div>
+          <!-- Temas cubiertos -->
+          <div class="topics-covered">
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> La información en la empresa</div>
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Sistemas de Información</div>
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Tipos de SI</div>
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Componentes de SI</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEMANA 2 -->
+      <div class="week-card" id="semana2" data-keywords="computacion nube cloud modelos despliegue publica privada hibrida semana 2">
+        <div class="wc-header" onclick="toggleWeek(this)">
+          <div class="wc-num">S2</div>
+          <div class="wc-info">
+            <h3>Semana 2 – Computación en la Nube</h3>
+            <div class="wc-tags">
+              <span>Cloud Computing</span>
+              <span>IaaS / PaaS / SaaS</span>
+              <span>Modelos de despliegue</span>
+            </div>
+          </div>
+          <div class="wc-meta">
+            <span class="wc-date"><i class="fas fa-calendar"></i> Mar 2026</span>
+            <i class="fas fa-chevron-down wc-arrow"></i>
+          </div>
+        </div>
+        <div class="wc-body">
+          <div class="evidence-block">
+            <div class="ev-title"><i class="fas fa-cloud"></i> Infografía: Modelos de Servicio en la Nube</div>
+            <p class="ev-desc">Creación de una infografía que diferencia claramente los tres modelos de servicio en la nube: IaaS (Infraestructura como Servicio), PaaS (Plataforma como Servicio) y SaaS (Software como Servicio). Se incluyeron ejemplos con AWS EC2, Google App Engine y Microsoft 365 respectivamente.</p>
+            <div class="ev-gallery">
+              <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Agregar infografía IaaS/PaaS/SaaS</span></div>
+              <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Agregar diagrama modelos despliegue</span></div>
+            </div>
+            <div class="ev-actions">
+              <button class="btn-pdf" onclick="openPDF('semana2-evidencia1.pdf')"><i class="fas fa-file-pdf"></i> Ver PDF</button>
+              <a class="btn-download" href="#" download><i class="fas fa-download"></i> Descargar</a>
+              <a class="btn-link" href="https://azure.microsoft.com/es-es/overview/what-is-cloud-computing" target="_blank"><i class="fas fa-external-link-alt"></i> Microsoft Azure</a>
+            </div>
+          </div>
+          <div class="evidence-block">
+            <div class="ev-title"><i class="fas fa-sitemap"></i> Caso Práctico: Análisis de Modelos de Despliegue</div>
+            <p class="ev-desc">Análisis de los cuatro modelos de despliegue: nube pública (AWS, Azure, GCP), nube privada (servidores propios), nube híbrida (combinación) y nube comunitaria. Se evaluó cada modelo según criterios de costo, seguridad, escalabilidad y control para una empresa mediana del sector financiero peruano.</p>
+            <div class="ev-gallery">
+              <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Agregar caso práctico</span></div>
+            </div>
+            <div class="ev-actions">
+              <button class="btn-pdf" onclick="openPDF('semana2-evidencia2.pdf')"><i class="fas fa-file-pdf"></i> Ver PDF</button>
+              <a class="btn-download" href="#" download><i class="fas fa-download"></i> Descargar</a>
+            </div>
+          </div>
+          <div class="topics-covered">
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Computación en la nube</div>
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> IaaS / PaaS / SaaS</div>
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Nube pública / privada / híbrida</div>
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Modelos de despliegue</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEMANA 3 -->
+      <div class="week-card" id="semana3" data-keywords="administracion nube funciones tecnologia gestion semana 3">
+        <div class="wc-header" onclick="toggleWeek(this)">
+          <div class="wc-num">S3</div>
+          <div class="wc-info">
+            <h3>Semana 3 – Administración en la Nube</h3>
+            <div class="wc-tags">
+              <span>Funciones administrativas</span>
+              <span>Tecnología cloud</span>
+              <span>Gestión</span>
+            </div>
+          </div>
+          <div class="wc-meta">
+            <span class="wc-date"><i class="fas fa-calendar"></i> Abr 2026</span>
+            <i class="fas fa-chevron-down wc-arrow"></i>
+          </div>
+        </div>
+        <div class="wc-body">
+          <div class="evidence-block">
+            <div class="ev-title"><i class="fas fa-cogs"></i> Reporte: Funciones de Administración en la Nube</div>
+            <p class="ev-desc">Reporte detallado sobre las funciones clave de la administración en la nube: aprovisionamiento de recursos, monitoreo del rendimiento, gestión de costos (FinOps), seguridad y cumplimiento, y orquestación de contenedores con Kubernetes. Se analizaron herramientas como AWS CloudWatch, Azure Monitor y Google Cloud Console.</p>
+            <div class="ev-gallery">
+              <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Agregar captura AWS Console</span></div>
+              <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Agregar diagrama de funciones</span></div>
+            </div>
+            <div class="ev-actions">
+              <button class="btn-pdf" onclick="openPDF('semana3-evidencia1.pdf')"><i class="fas fa-file-pdf"></i> Ver PDF</button>
+              <a class="btn-download" href="#" download><i class="fas fa-download"></i> Descargar</a>
+              <a class="btn-link" href="https://aws.amazon.com/es/cloud-management/" target="_blank"><i class="fas fa-external-link-alt"></i> AWS Cloud Management</a>
+            </div>
+          </div>
+          <div class="evidence-block">
+            <div class="ev-title"><i class="fas fa-microchip"></i> Ensayo: Tecnologías Emergentes en la Nube</div>
+            <p class="ev-desc">Ensayo académico sobre las tecnologías que sustentan la administración moderna en la nube: virtualización (VMware, Hyper-V), contenedores (Docker), serverless computing (AWS Lambda), edge computing y la integración con Inteligencia Artificial para automatización de tareas administrativas.</p>
+            <div class="ev-gallery">
+              <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Agregar portada del ensayo</span></div>
+            </div>
+            <div class="ev-actions">
+              <button class="btn-pdf" onclick="openPDF('semana3-evidencia2.pdf')"><i class="fas fa-file-pdf"></i> Ver PDF</button>
+              <a class="btn-download" href="#" download><i class="fas fa-download"></i> Descargar</a>
+            </div>
+          </div>
+          <div class="topics-covered">
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Administración en la nube</div>
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Funciones cloud</div>
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Tecnología de virtualización</div>
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Containers y serverless</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEMANA 4 -->
+      <div class="week-card" id="semana4" data-keywords="infraestructura TI componentes tipos hardware software red semana 4">
+        <div class="wc-header" onclick="toggleWeek(this)">
+          <div class="wc-num">S4</div>
+          <div class="wc-info">
+            <h3>Semana 4 – Infraestructura de TI</h3>
+            <div class="wc-tags">
+              <span>Infraestructura</span>
+              <span>Componentes TI</span>
+              <span>Tipos</span>
+            </div>
+          </div>
+          <div class="wc-meta">
+            <span class="wc-date"><i class="fas fa-calendar"></i> Abr 2026</span>
+            <i class="fas fa-chevron-down wc-arrow"></i>
+          </div>
+        </div>
+        <div class="wc-body">
+          <div class="evidence-block">
+            <div class="ev-title"><i class="fas fa-network-wired"></i> Diagrama: Componentes de Infraestructura de TI</div>
+            <p class="ev-desc">Elaboración de un diagrama arquitectónico completo de la infraestructura de TI empresarial, identificando cinco capas: hardware (servidores, storage, networking), software (SO, middleware, aplicaciones), datos (DBMS, almacenamiento), conectividad (LAN, WAN, Internet) y servicios (correo, web, seguridad). Ejemplo aplicado a la UPLA.</p>
+            <div class="ev-gallery">
+              <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Agregar diagrama de infraestructura</span></div>
+              <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Agregar mapa de red</span></div>
+            </div>
+            <div class="ev-actions">
+              <button class="btn-pdf" onclick="openPDF('semana4-evidencia1.pdf')"><i class="fas fa-file-pdf"></i> Ver PDF</button>
+              <a class="btn-download" href="#" download><i class="fas fa-download"></i> Descargar</a>
+            </div>
+          </div>
+          <div class="evidence-block">
+            <div class="ev-title"><i class="fas fa-server"></i> Cuadro Resumen: Tipos de Infraestructura de TI</div>
+            <p class="ev-desc">Cuadro comparativo de los principales tipos de infraestructura: on-premise (servidores físicos propios), co-location (data centers compartidos), infraestructura en la nube (IaaS) e infraestructura híbrida. Se evaluaron escenarios de uso, costos CAPEX vs OPEX, niveles de disponibilidad (SLA) y casos reales en empresas peruanas.</p>
+            <div class="ev-gallery">
+              <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Agregar cuadro comparativo</span></div>
+            </div>
+            <div class="ev-actions">
+              <button class="btn-pdf" onclick="openPDF('semana4-evidencia2.pdf')"><i class="fas fa-file-pdf"></i> Ver PDF</button>
+              <a class="btn-download" href="#" download><i class="fas fa-download"></i> Descargar</a>
+            </div>
+          </div>
+          <div class="topics-covered">
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Infraestructura de TI</div>
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Componentes hardware/software</div>
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> On-premise vs Cloud</div>
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> CAPEX vs OPEX</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /weeks-grid -->
+  </section>
+
+  <!-- ══════════════════════════════════════
+       UNIDAD II
+  ══════════════════════════════════════ -->
+  <section class="unit-section" id="unidad2">
+    <div class="unit-header u2-header">
+      <div class="unit-icon"><i class="fas fa-briefcase"></i></div>
+      <div>
+        <div class="unit-label">Unidad II</div>
+        <h2 class="unit-title">Aplicaciones Empresariales de Sistemas de Información</h2>
+        <p class="unit-desc">ERP, CRM, SCM, inteligencia de negocios y gestión de aplicaciones en la nube híbrida para entornos empresariales.</p>
+      </div>
+      <div class="unit-weeks-badge">4 semanas</div>
+    </div>
+    <div class="weeks-grid">
+
+      <!-- SEMANA 5 -->
+      <div class="week-card" id="semana5" data-keywords="negocios inteligencia bases datos administracion informacion BI semana 5">
+        <div class="wc-header" onclick="toggleWeek(this)">
+          <div class="wc-num">S5</div>
+          <div class="wc-info">
+            <h3>Semana 5 – Sistemas de Información en los Negocios</h3>
+            <div class="wc-tags">
+              <span>Business Intelligence</span>
+              <span>Bases de Datos</span>
+              <span>Admin. Información</span>
+            </div>
+          </div>
+          <div class="wc-meta">
+            <span class="wc-date"><i class="fas fa-calendar"></i> Abr 2026</span>
+            <i class="fas fa-chevron-down wc-arrow"></i>
+          </div>
+        </div>
+        <div class="wc-body">
+          <div class="evidence-block">
+            <div class="ev-title"><i class="fas fa-chart-bar"></i> Reporte: Business Intelligence y Big Data</div>
+            <p class="ev-desc">Análisis del rol de la inteligencia de negocios en la toma de decisiones gerenciales. Se exploraron herramientas BI como Power BI, Tableau y Qlik Sense, así como conceptos de Data Warehouse, Data Mining y el ciclo ETL (Extracción, Transformación y Carga). Caso práctico: implementación de dashboard en una empresa de retail.</p>
+            <div class="ev-gallery">
+              <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Agregar captura Power BI</span></div>
+              <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Agregar diagrama ETL</span></div>
+            </div>
+            <div class="ev-actions">
+              <button class="btn-pdf" onclick="openPDF('semana5-evidencia1.pdf')"><i class="fas fa-file-pdf"></i> Ver PDF</button>
+              <a class="btn-download" href="#" download><i class="fas fa-download"></i> Descargar</a>
+              <a class="btn-link" href="https://powerbi.microsoft.com/es-es/" target="_blank"><i class="fas fa-external-link-alt"></i> Power BI</a>
+            </div>
+          </div>
+          <div class="evidence-block">
+            <div class="ev-title"><i class="fas fa-database"></i> Práctica: Diseño de Base de Datos Empresarial</div>
+            <p class="ev-desc">Diseño de una base de datos relacional para una empresa distribuidora, aplicando el modelo entidad-relación (ER), normalización hasta 3FN, diseño físico con SQL Server, y estrategias de administración de la información: backup, recuperación, control de accesos y auditoría de datos.</p>
+            <div class="ev-gallery">
+              <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Agregar diagrama ER</span></div>
+              <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Agregar script SQL</span></div>
+            </div>
+            <div class="ev-actions">
+              <button class="btn-pdf" onclick="openPDF('semana5-evidencia2.pdf')"><i class="fas fa-file-pdf"></i> Ver PDF</button>
+              <a class="btn-download" href="#" download><i class="fas fa-download"></i> Descargar</a>
+            </div>
+          </div>
+          <div class="topics-covered">
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> SI en los negocios</div>
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Inteligencia de negocios</div>
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Bases de datos</div>
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Administración de la información</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEMANA 6 -->
+      <div class="week-card" id="semana6" data-keywords="estructura informatica integral sistemas informacion gerencial diseño SIG semana 6">
+        <div class="wc-header" onclick="toggleWeek(this)">
+          <div class="wc-num">S6</div>
+          <div class="wc-info">
+            <h3>Semana 6 – Estructura Informática Integral</h3>
+            <div class="wc-tags">
+              <span>SIG</span>
+              <span>Arquitectura IS</span>
+              <span>Diseño integral</span>
+            </div>
+          </div>
+          <div class="wc-meta">
+            <span class="wc-date"><i class="fas fa-calendar"></i> May 2026</span>
+            <i class="fas fa-chevron-down wc-arrow"></i>
+          </div>
+        </div>
+        <div class="wc-body">
+          <div class="evidence-block">
+            <div class="ev-title"><i class="fas fa-project-diagram"></i> Trabajo: Diseño de Estructura Informática Integral</div>
+            <p class="ev-desc">Diseño completo de la estructura informática integral de un Sistema de Información Gerencial para una organización mediana. Abarca: arquitectura de capas (presentación, negocio, datos), integración de subsistemas (contabilidad, RRHH, logística, ventas), flujos de información gerencial y mecanismos de reportería ejecutiva con indicadores KPI.</p>
+            <div class="ev-gallery">
+              <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Agregar arquitectura de capas</span></div>
+              <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Agregar diagrama de flujo de información</span></div>
+              <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Agregar dashboard de KPIs</span></div>
+            </div>
+            <div class="ev-actions">
+              <button class="btn-pdf" onclick="openPDF('semana6-evidencia1.pdf')"><i class="fas fa-file-pdf"></i> Ver PDF</button>
+              <a class="btn-download" href="#" download><i class="fas fa-download"></i> Descargar</a>
+            </div>
+          </div>
+          <div class="topics-covered">
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Estructura informática integral</div>
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Arquitectura de SI Gerencial</div>
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> KPIs gerenciales</div>
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Integración de subsistemas</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEMANA 7 -->
+      <div class="week-card" id="semana7" data-keywords="ERP CRM SCM SIG aplicaciones empresariales EAS SAP Salesforce semana 7">
+        <div class="wc-header" onclick="toggleWeek(this)">
+          <div class="wc-num">S7</div>
+          <div class="wc-info">
+            <h3>Semana 7 – Aplicaciones Empresariales: ERP, CRM, SCM</h3>
+            <div class="wc-tags">
+              <span>ERP</span>
+              <span>CRM</span>
+              <span>SCM</span>
+              <span>EAS</span>
+            </div>
+          </div>
+          <div class="wc-meta">
+            <span class="wc-date"><i class="fas fa-calendar"></i> May 2026</span>
+            <i class="fas fa-chevron-down wc-arrow"></i>
+          </div>
+        </div>
+        <div class="wc-body">
+          <div class="evidence-block">
+            <div class="ev-title"><i class="fas fa-cubes"></i> Investigación: Sistemas ERP, CRM y SCM</div>
+            <p class="ev-desc">Investigación comparativa de los principales sistemas de aplicaciones empresariales. ERP (SAP S/4HANA, Oracle ERP Cloud): planificación de recursos empresariales. CRM (Salesforce, HubSpot): gestión de relaciones con clientes. SCM (SAP SCM, Manhattan): cadena de suministro. SIG: soporte a la alta gerencia. Se analizaron casos de implementación en empresas latinoamericanas.</p>
+            <div class="ev-gallery">
+              <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Agregar comparativa ERP/CRM/SCM</span></div>
+              <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Agregar caso SAP en Perú</span></div>
+            </div>
+            <div class="ev-actions">
+              <button class="btn-pdf" onclick="openPDF('semana7-evidencia1.pdf')"><i class="fas fa-file-pdf"></i> Ver PDF</button>
+              <a class="btn-download" href="#" download><i class="fas fa-download"></i> Descargar</a>
+              <a class="btn-link" href="https://www.sap.com/latinamerica/index.html" target="_blank"><i class="fas fa-external-link-alt"></i> SAP Latin America</a>
+            </div>
+          </div>
+          <div class="evidence-block">
+            <div class="ev-title"><i class="fas fa-th"></i> Mapa Mental: Integración de Aplicaciones Empresariales</div>
+            <p class="ev-desc">Mapa mental que muestra cómo las aplicaciones EAS (Enterprise Application Software) se integran entre sí mediante APIs, middleware (ESB) y plataformas de integración como MuleSoft. Se representaron los flujos de datos entre módulos de ventas, compras, finanzas, producción y logística.</p>
+            <div class="ev-gallery">
+              <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Agregar mapa mental EAS</span></div>
+            </div>
+            <div class="ev-actions">
+              <button class="btn-pdf" onclick="openPDF('semana7-evidencia2.pdf')"><i class="fas fa-file-pdf"></i> Ver PDF</button>
+              <a class="btn-download" href="#" download><i class="fas fa-download"></i> Descargar</a>
+            </div>
+          </div>
+          <div class="topics-covered">
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Aplicaciones empresariales EAS</div>
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> ERP (SAP, Oracle)</div>
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> CRM (Salesforce)</div>
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> SCM y SIG</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEMANA 8 -->
+      <div class="week-card" id="semana8" data-keywords="nube hibrida gestion aplicaciones software cloud hybrid semana 8">
+        <div class="wc-header" onclick="toggleWeek(this)">
+          <div class="wc-num">S8</div>
+          <div class="wc-info">
+            <h3>Semana 8 – Gestión de Aplicaciones para la Nube Híbrida</h3>
+            <div class="wc-tags">
+              <span>Nube Híbrida</span>
+              <span>Software híbrido</span>
+              <span>Kubernetes</span>
+            </div>
+          </div>
+          <div class="wc-meta">
+            <span class="wc-date"><i class="fas fa-calendar"></i> May 2026</span>
+            <i class="fas fa-chevron-down wc-arrow"></i>
+          </div>
+        </div>
+        <div class="wc-body">
+          <div class="evidence-block">
+            <div class="ev-title"><i class="fas fa-code-branch"></i> Caso de Estudio: Migración a Nube Híbrida</div>
+            <p class="ev-desc">Caso de estudio sobre la migración de una empresa bancaria peruana de infraestructura on-premise a nube híbrida. Se analizaron las herramientas de gestión de aplicaciones híbridas: Red Hat OpenShift, VMware vSphere, Azure Arc y AWS Outposts. Se elaboró un plan de migración por fases con análisis de riesgos y beneficios.</p>
+            <div class="ev-gallery">
+              <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Agregar plan de migración</span></div>
+              <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Agregar arquitectura híbrida</span></div>
+            </div>
+            <div class="ev-actions">
+              <button class="btn-pdf" onclick="openPDF('semana8-evidencia1.pdf')"><i class="fas fa-file-pdf"></i> Ver PDF</button>
+              <a class="btn-download" href="#" download><i class="fas fa-download"></i> Descargar</a>
+              <a class="btn-link" href="https://www.redhat.com/es/topics/cloud/what-is-hybrid-cloud" target="_blank"><i class="fas fa-external-link-alt"></i> Red Hat Hybrid Cloud</a>
+            </div>
+          </div>
+          <div class="topics-covered">
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Gestión de aplicaciones híbridas</div>
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Software de nube híbrida</div>
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Kubernetes y contenedores</div>
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Migración cloud</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       UNIDAD III
+  ══════════════════════════════════════ -->
+  <section class="unit-section" id="unidad3">
+    <div class="unit-header u3-header">
+      <div class="unit-icon"><i class="fas fa-server"></i></div>
+      <div>
+        <div class="unit-label">Unidad III</div>
+        <h2 class="unit-title">Infraestructura de Tecnologías de Información</h2>
+        <p class="unit-desc">Gobierno de TI, ITIL, gestión de servicios, gestión del cambio y continuidad del servicio tecnológico en la organización.</p>
+      </div>
+      <div class="unit-weeks-badge">4 semanas</div>
+    </div>
+    <div class="weeks-grid">
+
+      <!-- SEMANA 9 -->
+      <div class="week-card" id="semana9" data-keywords="gobierno TI IT governance alineamiento estrategico valor procesos COBIT semana 9">
+        <div class="wc-header" onclick="toggleWeek(this)">
+          <div class="wc-num">S9</div>
+          <div class="wc-info">
+            <h3>Semana 9 – Gobierno de TI</h3>
+            <div class="wc-tags">
+              <span>IT Governance</span>
+              <span>COBIT</span>
+              <span>Alineamiento estratégico</span>
+            </div>
+          </div>
+          <div class="wc-meta">
+            <span class="wc-date"><i class="fas fa-calendar"></i> Jun 2026</span>
+            <i class="fas fa-chevron-down wc-arrow"></i>
+          </div>
+        </div>
+        <div class="wc-body">
+          <div class="evidence-block">
+            <div class="ev-title"><i class="fas fa-balance-scale"></i> Reporte: Marco de Gobierno de TI con COBIT 2019</div>
+            <p class="ev-desc">Análisis detallado del marco de Gobierno de TI COBIT 2019, sus cinco dominios: Evaluar, Dirigir y Monitorear (EDM), Alinear, Planificar y Organizar (APO), Construir, Adquirir e Implementar (BAI), Entregar, Servir y Soportar (DSS), Monitorear, Evaluar y Valorar (MEA). Se aplicó el modelo al contexto universitario de la UPLA.</p>
+            <div class="ev-gallery">
+              <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Agregar diagrama COBIT 2019</span></div>
+              <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Agregar mapa de dominios</span></div>
+            </div>
+            <div class="ev-actions">
+              <button class="btn-pdf" onclick="openPDF('semana9-evidencia1.pdf')"><i class="fas fa-file-pdf"></i> Ver PDF</button>
+              <a class="btn-download" href="#" download><i class="fas fa-download"></i> Descargar</a>
+              <a class="btn-link" href="https://www.isaca.org/resources/cobit" target="_blank"><i class="fas fa-external-link-alt"></i> ISACA COBIT</a>
+            </div>
+          </div>
+          <div class="evidence-block">
+            <div class="ev-title"><i class="fas fa-chess"></i> Informe: Alineamiento Estratégico TI-Negocio</div>
+            <p class="ev-desc">Informe sobre los mecanismos de alineamiento entre la estrategia de TI y la estrategia del negocio usando el modelo de madurez de Luftman. Se propuso un plan de creación de valor TI mediante indicadores de valor (ITBSC – IT Balanced Scorecard) y análisis de gestión de procesos con mapa de cadena de valor de TI.</p>
+            <div class="ev-gallery">
+              <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Agregar ITBSC</span></div>
+            </div>
+            <div class="ev-actions">
+              <button class="btn-pdf" onclick="openPDF('semana9-evidencia2.pdf')"><i class="fas fa-file-pdf"></i> Ver PDF</button>
+              <a class="btn-download" href="#" download><i class="fas fa-download"></i> Descargar</a>
+            </div>
+          </div>
+          <div class="topics-covered">
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Gobierno de TI</div>
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Alineamiento estratégico</div>
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Creación de valor TI</div>
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Gestión de procesos TI</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEMANA 10 -->
+      <div class="week-card" id="semana10" data-keywords="gestion servicios ITIL estrategia servicio service management semana 10">
+        <div class="wc-header" onclick="toggleWeek(this)">
+          <div class="wc-num">S10</div>
+          <div class="wc-info">
+            <h3>Semana 10 – Gestión de Servicios</h3>
+            <div class="wc-tags">
+              <span>ITIL v4</span>
+              <span>Estrategia del servicio</span>
+              <span>ITSM</span>
+            </div>
+          </div>
+          <div class="wc-meta">
+            <span class="wc-date"><i class="fas fa-calendar"></i> Jun 2026</span>
+            <i class="fas fa-chevron-down wc-arrow"></i>
+          </div>
+        </div>
+        <div class="wc-body">
+          <div class="evidence-block">
+            <div class="ev-title"><i class="fas fa-headset"></i> Mapa Conceptual: ITIL v4 y Gestión de Servicios</div>
+            <p class="ev-desc">Mapa conceptual del marco ITIL v4 y su Sistema de Valor del Servicio (SVS). Se desarrollaron los conceptos de la estrategia del servicio: gestión del portafolio de servicios, gestión de la demanda, gestión financiera de TI y gestión de las relaciones con el negocio. Se analizaron herramientas ITSM como ServiceNow y Jira Service Management.</p>
+            <div class="ev-gallery">
+              <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Agregar mapa ITIL v4 SVS</span></div>
+              <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Agregar captura ServiceNow</span></div>
+            </div>
+            <div class="ev-actions">
+              <button class="btn-pdf" onclick="openPDF('semana10-evidencia1.pdf')"><i class="fas fa-file-pdf"></i> Ver PDF</button>
+              <a class="btn-download" href="#" download><i class="fas fa-download"></i> Descargar</a>
+              <a class="btn-link" href="https://www.axelos.com/certifications/itil-service-management" target="_blank"><i class="fas fa-external-link-alt"></i> AXELOS ITIL</a>
+            </div>
+          </div>
+          <div class="topics-covered">
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Gestión de servicios TI</div>
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Estrategia del servicio ITIL</div>
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Portafolio de servicios</div>
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> ITSM con ServiceNow</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEMANA 11 -->
+      <div class="week-card" id="semana11" data-keywords="diseño servicio transicion ITIL service design transition semana 11">
+        <div class="wc-header" onclick="toggleWeek(this)">
+          <div class="wc-num">S11</div>
+          <div class="wc-info">
+            <h3>Semana 11 – Diseño y Transición del Servicio</h3>
+            <div class="wc-tags">
+              <span>Diseño del servicio</span>
+              <span>Transición</span>
+              <span>ITIL</span>
+            </div>
+          </div>
+          <div class="wc-meta">
+            <span class="wc-date"><i class="fas fa-calendar"></i> Jun 2026</span>
+            <i class="fas fa-chevron-down wc-arrow"></i>
+          </div>
+        </div>
+        <div class="wc-body">
+          <div class="evidence-block">
+            <div class="ev-title"><i class="fas fa-drafting-compass"></i> Reporte: Diseño y Transición del Servicio ITIL</div>
+            <p class="ev-desc">Reporte académico sobre las fases de Diseño del Servicio y Transición del Servicio en ITIL v4. Diseño: gestión del catálogo de servicios, SLA/OLA/UC, gestión de la disponibilidad, capacidad y continuidad. Transición: gestión de activos y configuración (CMDB), gestión de la validación y pruebas, y planificación de la transición tecnológica.</p>
+            <div class="ev-gallery">
+              <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Agregar flujo de diseño del servicio</span></div>
+              <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Agregar CMDB ejemplo</span></div>
+            </div>
+            <div class="ev-actions">
+              <button class="btn-pdf" onclick="openPDF('semana11-evidencia1.pdf')"><i class="fas fa-file-pdf"></i> Ver PDF</button>
+              <a class="btn-download" href="#" download><i class="fas fa-download"></i> Descargar</a>
+            </div>
+          </div>
+          <div class="topics-covered">
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Diseño del servicio</div>
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> SLA / OLA / UC</div>
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Transición del servicio</div>
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> CMDB</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEMANA 12 -->
+      <div class="week-card" id="semana12" data-keywords="cambio conocimiento eventos incidencias centro servicio ITIL semana 12">
+        <div class="wc-header" onclick="toggleWeek(this)">
+          <div class="wc-num">S12</div>
+          <div class="wc-info">
+            <h3>Semana 12 – Gestión del Cambio, Conocimiento e Incidencias</h3>
+            <div class="wc-tags">
+              <span>Change Mgmt</span>
+              <span>Help Desk</span>
+              <span>Incidencias</span>
+            </div>
+          </div>
+          <div class="wc-meta">
+            <span class="wc-date"><i class="fas fa-calendar"></i> Jul 2026</span>
+            <i class="fas fa-chevron-down wc-arrow"></i>
+          </div>
+        </div>
+        <div class="wc-body">
+          <div class="evidence-block">
+            <div class="ev-title"><i class="fas fa-exchange-alt"></i> Caso Práctico: Gestión del Cambio Tecnológico</div>
+            <p class="ev-desc">Caso práctico de gestión del cambio aplicando el proceso RFC (Request for Change), el Comité Asesor de Cambios (CAB) y los tipos de cambio: estándar, normal y de emergencia. Se simuló la implementación de un cambio de versión en el ERP de una empresa, documentando el plan de comunicación, rollback y gestión del conocimiento con KMS.</p>
+            <div class="ev-gallery">
+              <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Agregar flujo RFC</span></div>
+              <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Agregar ticket de incidencia</span></div>
+            </div>
+            <div class="ev-actions">
+              <button class="btn-pdf" onclick="openPDF('semana12-evidencia1.pdf')"><i class="fas fa-file-pdf"></i> Ver PDF</button>
+              <a class="btn-download" href="#" download><i class="fas fa-download"></i> Descargar</a>
+            </div>
+          </div>
+          <div class="evidence-block">
+            <div class="ev-title"><i class="fas fa-phone-alt"></i> Guía: Centro de Servicios (Service Desk)</div>
+            <p class="ev-desc">Guía de implementación de un Centro de Servicio (Service Desk) según ITIL, con roles (analista L1, L2, L3), flujos de escalamiento, gestión de eventos (monitoreo proactivo), gestión de incidencias (ciclo de vida del incidente) y métricas clave: MTTR, MTBF, First Call Resolution y satisfacción del usuario.</p>
+            <div class="ev-gallery">
+              <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Agregar organigrama service desk</span></div>
+            </div>
+            <div class="ev-actions">
+              <button class="btn-pdf" onclick="openPDF('semana12-evidencia2.pdf')"><i class="fas fa-file-pdf"></i> Ver PDF</button>
+              <a class="btn-download" href="#" download><i class="fas fa-download"></i> Descargar</a>
+            </div>
+          </div>
+          <div class="topics-covered">
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Gestión del cambio</div>
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Gestión del conocimiento</div>
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Gestión de eventos</div>
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Centro de servicio</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       UNIDAD IV
+  ══════════════════════════════════════ -->
+  <section class="unit-section" id="unidad4">
+    <div class="unit-header u4-header">
+      <div class="unit-icon"><i class="fas fa-code"></i></div>
+      <div>
+        <div class="unit-label">Unidad IV</div>
+        <h2 class="unit-title">Desarrollo de Sistemas de Información en la Empresa</h2>
+        <p class="unit-desc">Ciclo de vida, metodologías ágiles, implementación y exposición del proyecto práctico final del curso.</p>
+      </div>
+      <div class="unit-weeks-badge">4 semanas</div>
+    </div>
+    <div class="weeks-grid">
+
+      <!-- SEMANA 13 -->
+      <div class="week-card" id="semana13" data-keywords="ciclo vida desarrollo sistemas metodologias SDLC agil scrum semana 13">
+        <div class="wc-header" onclick="toggleWeek(this)">
+          <div class="wc-num">S13</div>
+          <div class="wc-info">
+            <h3>Semana 13 – Ciclo de Vida y Metodologías de Desarrollo</h3>
+            <div class="wc-tags">
+              <span>SDLC</span>
+              <span>Scrum</span>
+              <span>Metodologías ágiles</span>
+            </div>
+          </div>
+          <div class="wc-meta">
+            <span class="wc-date"><i class="fas fa-calendar"></i> Jul 2026</span>
+            <i class="fas fa-chevron-down wc-arrow"></i>
+          </div>
+        </div>
+        <div class="wc-body">
+          <div class="evidence-block">
+            <div class="ev-title"><i class="fas fa-sync-alt"></i> Informe: Metodologías de Desarrollo de SI</div>
+            <p class="ev-desc">Comparativa de metodologías de desarrollo de sistemas de información: tradicionales (Cascada, RUP, Espiral) vs ágiles (Scrum, XP, Kanban, SAFe). Se analizó el ciclo SDLC completo (análisis, diseño, desarrollo, pruebas, implementación, mantenimiento) y se seleccionó la metodología más adecuada para cada tipo de proyecto empresarial, con matriz de selección ponderada.</p>
+            <div class="ev-gallery">
+              <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Agregar diagrama ciclo SDLC</span></div>
+              <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Agregar tablero Scrum</span></div>
+            </div>
+            <div class="ev-actions">
+              <button class="btn-pdf" onclick="openPDF('semana13-evidencia1.pdf')"><i class="fas fa-file-pdf"></i> Ver PDF</button>
+              <a class="btn-download" href="#" download><i class="fas fa-download"></i> Descargar</a>
+              <a class="btn-link" href="https://www.scrum.org/resources/what-is-scrum" target="_blank"><i class="fas fa-external-link-alt"></i> Scrum.org</a>
+            </div>
+          </div>
+          <div class="evidence-block">
+            <div class="ev-title"><i class="fas fa-clipboard-list"></i> Práctica: Plan de Proyecto con Scrum</div>
+            <p class="ev-desc">Elaboración de un plan de proyecto de desarrollo de software usando Scrum: definición del Product Backlog, planificación de 4 Sprints, User Stories con criterios de aceptación, Definition of Done, velocidad del equipo y burndown chart. El proyecto consistió en el desarrollo de un sistema de gestión académica para una institución educativa.</p>
+            <div class="ev-gallery">
+              <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Agregar product backlog</span></div>
+              <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Agregar burndown chart</span></div>
+            </div>
+            <div class="ev-actions">
+              <button class="btn-pdf" onclick="openPDF('semana13-evidencia2.pdf')"><i class="fas fa-file-pdf"></i> Ver PDF</button>
+              <a class="btn-download" href="#" download><i class="fas fa-download"></i> Descargar</a>
+            </div>
+          </div>
+          <div class="topics-covered">
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Ciclo de vida SDLC</div>
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Metodologías tradicionales</div>
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Scrum y metodologías ágiles</div>
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Selección de metodología</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEMANA 14 -->
+      <div class="week-card" id="semana14" data-keywords="implementacion sistemas informacion despliegue migracion capacitacion semana 14">
+        <div class="wc-header" onclick="toggleWeek(this)">
+          <div class="wc-num">S14</div>
+          <div class="wc-info">
+            <h3>Semana 14 – Implementación de Sistemas de Información</h3>
+            <div class="wc-tags">
+              <span>Implementación</span>
+              <span>Despliegue</span>
+              <span>Migración</span>
+            </div>
+          </div>
+          <div class="wc-meta">
+            <span class="wc-date"><i class="fas fa-calendar"></i> Jul 2026</span>
+            <i class="fas fa-chevron-down wc-arrow"></i>
+          </div>
+        </div>
+        <div class="wc-body">
+          <div class="evidence-block">
+            <div class="ev-title"><i class="fas fa-rocket"></i> Plan de Implementación: Sistema ERP</div>
+            <p class="ev-desc">Diseño de un plan integral de implementación de un sistema ERP en una empresa manufacturera. El plan abarca: análisis de brechas (gap analysis), estrategia de migración de datos (validación, limpieza, carga), configuración y parametrización del sistema, pruebas de integración, plan de capacitación a usuarios (train-the-trainer) y soporte post-implementación con SLA definido.</p>
+            <div class="ev-gallery">
+              <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Agregar cronograma de implementación</span></div>
+              <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Agregar diagrama de migración de datos</span></div>
+              <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Agregar plan de capacitación</span></div>
+            </div>
+            <div class="ev-actions">
+              <button class="btn-pdf" onclick="openPDF('semana14-evidencia1.pdf')"><i class="fas fa-file-pdf"></i> Ver PDF</button>
+              <a class="btn-download" href="#" download><i class="fas fa-download"></i> Descargar</a>
+            </div>
+          </div>
+          <div class="topics-covered">
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Plan de implementación</div>
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Migración de datos</div>
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Capacitación de usuarios</div>
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Soporte post-implementación</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEMANA 15 -->
+      <div class="week-card" id="semana15" data-keywords="proyecto practico sistema informacion empresa desarrollo semana 15">
+        <div class="wc-header" onclick="toggleWeek(this)">
+          <div class="wc-num">S15</div>
+          <div class="wc-info">
+            <h3>Semana 15 – Proyecto Práctico de Sistemas de Información</h3>
+            <div class="wc-tags">
+              <span>Proyecto integrador</span>
+              <span>Prototipo</span>
+              <span>Documentación</span>
+            </div>
+          </div>
+          <div class="wc-meta">
+            <span class="wc-date"><i class="fas fa-calendar"></i> Ago 2026</span>
+            <i class="fas fa-chevron-down wc-arrow"></i>
+          </div>
+        </div>
+        <div class="wc-body">
+          <div class="evidence-block">
+            <div class="ev-title"><i class="fas fa-laptop-code"></i> Proyecto: Sistema de Gestión Empresarial – [Nombre del Proyecto]</div>
+            <p class="ev-desc">Desarrollo del proyecto integrador del curso: un sistema de información gerencial que integra los conocimientos de todas las unidades. El sistema incluye: módulos de administración en la nube (AWS), base de datos relacional (PostgreSQL), aplicación web (React + Node.js), dashboard BI con indicadores KPI, integración con API REST y despliegue en contenedores Docker. Se aplicó metodología Scrum con 4 sprints de 2 semanas.</p>
+            <div class="ev-gallery">
+              <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Agregar captura del sistema</span></div>
+              <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Agregar arquitectura del proyecto</span></div>
+              <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Agregar diagrama de base de datos</span></div>
+            </div>
+            <div class="ev-actions">
+              <button class="btn-pdf" onclick="openPDF('semana15-proyecto.pdf')"><i class="fas fa-file-pdf"></i> Ver Informe</button>
+              <a class="btn-download" href="#" download><i class="fas fa-download"></i> Descargar código</a>
+              <a class="btn-link" href="https://github.com" target="_blank"><i class="fab fa-github"></i> Repositorio GitHub</a>
+            </div>
+          </div>
+          <div class="evidence-block">
+            <div class="ev-title"><i class="fas fa-file-code"></i> Documentación Técnica del Proyecto</div>
+            <p class="ev-desc">Documentación técnica completa: especificación de requisitos (IEEE 830), diseño de arquitectura (C4 Model), manual de base de datos, manual de instalación y configuración, manual de usuario, plan de pruebas y métricas de calidad del software (ISO 25010).</p>
+            <div class="ev-gallery">
+              <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Agregar portada documentación</span></div>
+            </div>
+            <div class="ev-actions">
+              <button class="btn-pdf" onclick="openPDF('semana15-documentacion.pdf')"><i class="fas fa-file-pdf"></i> Ver Documentación</button>
+              <a class="btn-download" href="#" download><i class="fas fa-download"></i> Descargar</a>
+            </div>
+          </div>
+          <div class="topics-covered">
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Proyecto integrador</div>
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Arquitectura del sistema</div>
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Prototipo funcional</div>
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Documentación técnica</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEMANA 16 -->
+      <div class="week-card" id="semana16" data-keywords="exposicion proyecto practico sustentacion presentacion final semana 16">
+        <div class="wc-header" onclick="toggleWeek(this)">
+          <div class="wc-num">S16</div>
+          <div class="wc-info">
+            <h3>Semana 16 – Exposición del Proyecto Práctico</h3>
+            <div class="wc-tags">
+              <span>Sustentación final</span>
+              <span>Presentación</span>
+              <span>Demo</span>
+            </div>
+          </div>
+          <div class="wc-meta">
+            <span class="wc-date"><i class="fas fa-calendar"></i> Ago 2026</span>
+            <i class="fas fa-chevron-down wc-arrow"></i>
+          </div>
+        </div>
+        <div class="wc-body">
+          <div class="evidence-block">
+            <div class="ev-title"><i class="fas fa-presentation"></i> Presentación Final: Exposición del Proyecto</div>
+            <p class="ev-desc">Exposición final del proyecto práctico ante el docente y compañeros de clase. La presentación de 20 minutos cubrió: resumen ejecutivo, arquitectura del sistema, demostración en vivo de las funcionalidades principales, análisis de resultados obtenidos vs objetivos planteados, lecciones aprendidas y propuestas de mejora futura. Se respondió preguntas del jurado evaluador.</p>
+            <div class="ev-gallery">
+              <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Agregar foto de la exposición</span></div>
+              <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Agregar diapositivas de presentación</span></div>
+              <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Agregar captura demo en vivo</span></div>
+            </div>
+            <div class="ev-actions">
+              <button class="btn-pdf" onclick="openPDF('semana16-presentacion.pdf')"><i class="fas fa-file-pdf"></i> Ver Presentación</button>
+              <a class="btn-download" href="#" download><i class="fas fa-download"></i> Descargar PPT</a>
+            </div>
+          </div>
+          <div class="evidence-block">
+            <div class="ev-title"><i class="fas fa-star"></i> Reflexión Final: Aprendizajes del Curso</div>
+            <p class="ev-desc">Ensayo reflexivo sobre los principales aprendizajes del curso Gerencia de Sistemas de Información: la importancia estratégica de los SI en las organizaciones modernas, el rol del gerente de TI como socio del negocio, la necesidad del gobierno de TI para crear valor sostenible, y cómo las tecnologías cloud, el BI y los sistemas ERP transforman la competitividad empresarial en el contexto peruano y latinoamericano.</p>
+            <div class="ev-gallery">
+              <div class="gallery-placeholder"><i class="fas fa-image"></i><span>Agregar certificado o constancia</span></div>
+            </div>
+            <div class="ev-actions">
+              <button class="btn-pdf" onclick="openPDF('semana16-reflexion.pdf')"><i class="fas fa-file-pdf"></i> Ver Reflexión</button>
+              <a class="btn-download" href="#" download><i class="fas fa-download"></i> Descargar</a>
+            </div>
+          </div>
+          <div class="topics-covered">
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Exposición del proyecto</div>
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Demo funcional</div>
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Evaluación del jurado</div>
+            <div class="tc-chip"><i class="fas fa-check-circle"></i> Reflexión final del curso</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <i class="fas fa-graduation-cap"></i>
+        <div>
+          <div class="fl-title">Portafolio Académico de Evidencias</div>
+          <div class="fl-sub">Gerencia de Sistemas de Información · UPLA · 2026-I</div>
+        </div>
+      </div>
+      <div class="footer-info">
+        <div><i class="fas fa-university"></i> Universidad Peruana Los Andes</div>
+        <div><i class="fas fa-graduation-cap"></i> Ingeniería de Sistemas y Computación</div>
+        <div><i class="fas fa-chalkboard-teacher"></i> Dr. Magno Teófilo Baldeón Tovar</div>
+      </div>
+      <div class="footer-copy">
+        © 2026 · Elaborado con fines académicos
+      </div>
+    </div>
+  </footer>
+
+</main><!-- /main-content -->
+
+<!-- BOTÓN VOLVER ARRIBA -->
+<button class="back-to-top" id="backToTop" title="Volver arriba">
+  <i class="fas fa-arrow-up"></i>
+</button>
+
+<!-- MODAL VISOR PDF -->
+<div class="pdf-modal" id="pdfModal">
+  <div class="pdf-modal-inner">
+    <div class="pdf-modal-header">
+      <span id="pdfModalTitle"><i class="fas fa-file-pdf"></i> Visor de Documento</span>
+      <button onclick="closePDF()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="pdf-modal-body">
+      <iframe id="pdfFrame" src="" frameborder="0"></iframe>
+      <div class="pdf-placeholder" id="pdfPlaceholder">
+        <i class="fas fa-file-pdf"></i>
+        <p>Aquí se mostrará el PDF cuando lo agregues a la carpeta del proyecto.</p>
+        <small>Sube el archivo PDF con el nombre indicado y se cargará automáticamente.</small>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="pdf-overlay" id="pdfOverlay" onclick="closePDF()"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
