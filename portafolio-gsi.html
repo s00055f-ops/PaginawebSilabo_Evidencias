@@ -1,0 +1,2042 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portafolio Académico – Gerencia de Sistemas de Información | UPLA</title>
+
+  <!-- ============================================================
+       FUENTES EXTERNAS
+       ============================================================ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- ============================================================
+       ÍCONOS (Lucide via CDN)
+       ============================================================ -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <style>
+    /* ============================================================
+       VARIABLES DE DISEÑO
+       ============================================================ */
+    :root {
+      --bg-primary:    #f0f6ff;
+      --bg-secondary:  #ffffff;
+      --bg-card:       #ffffff;
+      --bg-sidebar:    #0d1b3e;
+      --text-primary:  #0d1b3e;
+      --text-secondary:#4a5f82;
+      --text-light:    #8fa3c0;
+      --accent-blue:   #1a6cde;
+      --accent-sky:    #38b6ff;
+      --accent-teal:   #00c4cc;
+      --gradient-hero: linear-gradient(135deg, #0d1b3e 0%, #1a3a6e 50%, #1a6cde 100%);
+      --gradient-card: linear-gradient(135deg, #e8f3ff 0%, #f5faff 100%);
+      --gradient-accent: linear-gradient(90deg, #38b6ff, #1a6cde, #00c4cc);
+      --shadow-sm:     0 2px 8px rgba(26,108,222,.08);
+      --shadow-md:     0 8px 24px rgba(26,108,222,.12);
+      --shadow-lg:     0 16px 48px rgba(26,108,222,.18);
+      --radius-sm:     8px;
+      --radius-md:     16px;
+      --radius-lg:     24px;
+      --sidebar-width: 280px;
+      --transition:    all .3s cubic-bezier(.4,0,.2,1);
+    }
+
+    /* Modo oscuro */
+    [data-theme="dark"] {
+      --bg-primary:    #060f1e;
+      --bg-secondary:  #0d1b3e;
+      --bg-card:       #0f2145;
+      --bg-sidebar:    #070f22;
+      --text-primary:  #e8f0ff;
+      --text-secondary:#8fa3c0;
+      --text-light:    #4a5f82;
+      --gradient-hero: linear-gradient(135deg, #070f22 0%, #0d1b3e 50%, #1a3a6e 100%);
+      --gradient-card: linear-gradient(135deg, #0f2145 0%, #0d1b3e 100%);
+      --shadow-sm:     0 2px 8px rgba(0,0,0,.3);
+      --shadow-md:     0 8px 24px rgba(0,0,0,.4);
+      --shadow-lg:     0 16px 48px rgba(0,0,0,.5);
+    }
+
+    /* ============================================================
+       RESET & BASE
+       ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      transition: var(--transition);
+      min-height: 100vh;
+    }
+
+    h1, h2, h3, h4 { font-family: 'Poppins', sans-serif; }
+
+    a { color: var(--accent-blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    img { max-width: 100%; border-radius: var(--radius-sm); }
+
+    /* ============================================================
+       LAYOUT: SIDEBAR + CONTENIDO PRINCIPAL
+       ============================================================ */
+    .layout {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ---------- SIDEBAR ---------- */
+    .sidebar {
+      width: var(--sidebar-width);
+      background: var(--bg-sidebar);
+      color: #e8f0ff;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      overflow-y: auto;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      transition: transform .35s cubic-bezier(.4,0,.2,1);
+      scrollbar-width: thin;
+      scrollbar-color: #1a6cde transparent;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-thumb { background: #1a6cde; border-radius: 4px; }
+
+    .sidebar-header {
+      padding: 24px 20px 16px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+
+    .sidebar-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .sidebar-logo-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--gradient-accent);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .sidebar-logo-text {
+      font-family: 'Poppins', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.2;
+    }
+
+    .sidebar-logo-sub {
+      font-size: 10px;
+      font-weight: 400;
+      color: #8fa3c0;
+    }
+
+    .sidebar-search {
+      position: relative;
+      margin-top: 12px;
+    }
+
+    .sidebar-search input {
+      width: 100%;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: var(--radius-sm);
+      padding: 9px 36px 9px 12px;
+      font-size: 13px;
+      color: #e8f0ff;
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .sidebar-search input::placeholder { color: #4a5f82; }
+    .sidebar-search input:focus { border-color: var(--accent-blue); background: rgba(26,108,222,.12); }
+
+    .sidebar-search-icon {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #4a5f82;
+      width: 15px;
+      height: 15px;
+    }
+
+    /* Progreso del curso */
+    .sidebar-progress {
+      padding: 16px 20px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #8fa3c0;
+      margin-bottom: 6px;
+    }
+
+    .progress-bar-wrap {
+      background: rgba(255,255,255,.08);
+      border-radius: 99px;
+      height: 6px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--gradient-accent);
+      border-radius: 99px;
+      transition: width 1.2s cubic-bezier(.4,0,.2,1);
+    }
+
+    /* Navegación del sidebar */
+    .sidebar-nav { flex: 1; padding: 12px 0; }
+
+    .nav-section-title {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #4a5f82;
+      padding: 8px 20px 4px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 20px;
+      font-size: 13px;
+      color: #8fa3c0;
+      cursor: pointer;
+      border-left: 3px solid transparent;
+      transition: var(--transition);
+      border-right: none;
+    }
+
+    .nav-item:hover, .nav-item.active {
+      color: #fff;
+      background: rgba(26,108,222,.15);
+      border-left-color: var(--accent-sky);
+    }
+
+    .nav-item i { width: 16px; height: 16px; flex-shrink: 0; }
+
+    /* Sidebar footer */
+    .sidebar-footer {
+      padding: 16px 20px;
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+
+    /* ---------- OVERLAY MÓVIL ---------- */
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.6);
+      z-index: 999;
+    }
+
+    /* ---------- TOPBAR ---------- */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 900;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid rgba(26,108,222,.1);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .topbar-hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-primary);
+      padding: 4px;
+    }
+
+    .topbar-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .topbar-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* Botón modo oscuro */
+    .theme-toggle {
+      background: var(--bg-card);
+      border: 1px solid rgba(26,108,222,.2);
+      border-radius: var(--radius-sm);
+      padding: 7px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-primary);
+      transition: var(--transition);
+    }
+
+    .theme-toggle:hover { background: var(--accent-blue); color: #fff; border-color: var(--accent-blue); }
+    .theme-toggle i { width: 14px; height: 14px; }
+
+    /* ---------- CONTENIDO PRINCIPAL ---------- */
+    .main-content {
+      margin-left: var(--sidebar-width);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .content-area {
+      padding: 32px 32px 80px;
+      max-width: 1100px;
+    }
+
+    /* ============================================================
+       SECCIÓN HERO / INICIO
+       ============================================================ */
+    .hero {
+      background: var(--gradient-hero);
+      border-radius: var(--radius-lg);
+      padding: 48px 40px;
+      color: #fff;
+      margin-bottom: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(56,182,255,.25) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: -40px;
+      width: 250px; height: 250px;
+      background: radial-gradient(circle, rgba(0,196,204,.2) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 99px;
+      padding: 5px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      backdrop-filter: blur(8px);
+    }
+
+    .hero-title {
+      font-size: clamp(22px, 4vw, 36px);
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(15px, 2.5vw, 20px);
+      font-weight: 600;
+      color: #38b6ff;
+      margin-bottom: 20px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .hero-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: rgba(255,255,255,.8);
+      background: rgba(255,255,255,.08);
+      border-radius: 99px;
+      padding: 5px 12px;
+    }
+
+    .hero-meta-item i { width: 13px; height: 13px; }
+
+    /* Tarjeta del estudiante dentro del hero */
+    .student-card {
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: var(--radius-md);
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      backdrop-filter: blur(12px);
+      max-width: 600px;
+    }
+
+    .student-avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      border: 3px solid rgba(56,182,255,.6);
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .student-info h3 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+
+    .student-info p {
+      font-size: 12px;
+      color: rgba(255,255,255,.7);
+      line-height: 1.6;
+    }
+
+    /* ============================================================
+       ESTADÍSTICAS / STATS
+       ============================================================ */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(26,108,222,.08);
+      transition: var(--transition);
+    }
+
+    .stat-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+
+    .stat-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 10px;
+    }
+
+    .stat-icon i { width: 22px; height: 22px; color: #fff; }
+
+    .stat-number {
+      font-family: 'Poppins', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--accent-blue);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .stat-label { font-size: 12px; color: var(--text-secondary); }
+
+    /* ============================================================
+       TÍTULO DE SECCIÓN
+       ============================================================ */
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 24px;
+      padding-bottom: 14px;
+      border-bottom: 2px solid rgba(26,108,222,.1);
+    }
+
+    .section-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .section-icon i { width: 24px; height: 24px; color: #fff; }
+
+    .section-title { font-size: clamp(18px, 3vw, 24px); font-weight: 700; }
+    .section-description { font-size: 14px; color: var(--text-secondary); margin-top: 3px; }
+
+    /* ============================================================
+       TARJETAS DE SEMANA (WEEK CARDS)
+       ============================================================ */
+    .week-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      margin-bottom: 20px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(26,108,222,.08);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .week-card:hover { box-shadow: var(--shadow-md); }
+
+    /* Cabecera del acordeón */
+    .week-card-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px 24px;
+      cursor: pointer;
+      user-select: none;
+      transition: var(--transition);
+    }
+
+    .week-card-header:hover { background: var(--gradient-card); }
+
+    .week-number {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--gradient-accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: 15px;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .week-card-meta { flex: 1; min-width: 0; }
+
+    .week-card-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .week-card-topics {
+      font-size: 12px;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .week-card-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+
+    .tag {
+      background: rgba(26,108,222,.1);
+      color: var(--accent-blue);
+      border-radius: 99px;
+      padding: 3px 10px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    [data-theme="dark"] .tag { background: rgba(56,182,255,.12); color: var(--accent-sky); }
+
+    .week-card-chevron {
+      width: 20px; height: 20px;
+      color: var(--text-secondary);
+      transition: transform .3s ease;
+      flex-shrink: 0;
+    }
+
+    .week-card.open .week-card-chevron { transform: rotate(180deg); }
+
+    /* Cuerpo del acordeón */
+    .week-card-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .5s cubic-bezier(.4,0,.2,1);
+    }
+
+    .week-card.open .week-card-body { max-height: 2400px; }
+
+    .week-card-content { padding: 0 24px 24px; }
+
+    /* ============================================================
+       EVIDENCIA DENTRO DE CADA SEMANA
+       ============================================================ */
+    .evidence-block {
+      background: var(--gradient-card);
+      border: 1px solid rgba(26,108,222,.1);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin-top: 16px;
+    }
+
+    [data-theme="dark"] .evidence-block { background: rgba(26,108,222,.06); }
+
+    .evidence-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--accent-blue);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .evidence-title i { width: 15px; height: 15px; }
+
+    .evidence-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 14px;
+    }
+
+    .evidence-date {
+      font-size: 11px;
+      color: var(--text-light);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .evidence-date i { width: 12px; height: 12px; }
+
+    /* Galería */
+    .evidence-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .gallery-img {
+      width: 100%;
+      height: 130px;
+      object-fit: cover;
+      border-radius: var(--radius-sm);
+      border: 2px solid transparent;
+      cursor: zoom-in;
+      transition: var(--transition);
+    }
+
+    .gallery-img:hover {
+      border-color: var(--accent-blue);
+      transform: scale(1.03);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Botones de acción */
+    .evidence-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: var(--transition);
+      text-decoration: none;
+    }
+
+    .btn i { width: 13px; height: 13px; }
+
+    .btn-primary {
+      background: var(--accent-blue);
+      color: #fff;
+    }
+
+    .btn-primary:hover { background: #155bb5; color: #fff; text-decoration: none; }
+
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid var(--accent-blue);
+      color: var(--accent-blue);
+    }
+
+    .btn-outline:hover { background: var(--accent-blue); color: #fff; text-decoration: none; }
+
+    .btn-sky {
+      background: var(--accent-sky);
+      color: #fff;
+    }
+
+    .btn-sky:hover { background: #1a9de0; color: #fff; text-decoration: none; }
+
+    /* Visualizador PDF embebido */
+    .pdf-viewer {
+      width: 100%;
+      height: 420px;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(26,108,222,.15);
+      margin-top: 14px;
+      background: var(--bg-primary);
+    }
+
+    /* ============================================================
+       SEPARADOR DE SECCIÓN
+       ============================================================ */
+    .unit-separator {
+      height: 4px;
+      background: var(--gradient-accent);
+      border-radius: 99px;
+      margin: 48px 0 36px;
+    }
+
+    /* ============================================================
+       LIGHTBOX (visualizador de imágenes)
+       ============================================================ */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.92);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .lightbox.open { display: flex; }
+
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 85vh;
+      border-radius: var(--radius-md);
+      object-fit: contain;
+      box-shadow: 0 0 60px rgba(56,182,255,.3);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255,255,255,.1);
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #fff;
+      transition: var(--transition);
+    }
+
+    .lightbox-close:hover { background: rgba(255,255,255,.25); }
+    .lightbox-close i { width: 20px; height: 20px; }
+
+    /* ============================================================
+       BOTÓN VOLVER ARRIBA
+       ============================================================ */
+    #back-to-top {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      width: 48px;
+      height: 48px;
+      background: var(--gradient-accent);
+      border: none;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: var(--shadow-md);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: var(--transition);
+      z-index: 800;
+    }
+
+    #back-to-top.visible { opacity: 1; transform: translateY(0); }
+    #back-to-top i { width: 20px; height: 20px; color: #fff; }
+    #back-to-top:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+
+    /* ============================================================
+       BADGE DE BÚSQUEDA SIN RESULTADOS
+       ============================================================ */
+    .no-results {
+      text-align: center;
+      padding: 40px;
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+
+    .no-results i { width: 40px; height: 40px; margin-bottom: 12px; display: block; margin: 0 auto 12px; color: var(--text-light); }
+
+    /* ============================================================
+       ANIMACIONES DE ENTRADA
+       ============================================================ */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-in {
+      animation: fadeInUp .5s cubic-bezier(.4,0,.2,1) both;
+    }
+
+    .animate-delay-1 { animation-delay: .1s; }
+    .animate-delay-2 { animation-delay: .2s; }
+    .animate-delay-3 { animation-delay: .3s; }
+    .animate-delay-4 { animation-delay: .4s; }
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (max-width: 900px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        transform: translateX(-100%);
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+      }
+
+      .sidebar-overlay.open { display: block; }
+
+      .main-content { margin-left: 0; }
+
+      .topbar-hamburger { display: flex; }
+
+      .content-area { padding: 20px 16px 80px; }
+
+      .hero { padding: 32px 20px; }
+
+      .student-card { flex-direction: column; text-align: center; }
+
+      .week-card-header { padding: 16px; }
+
+      .evidence-gallery { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 480px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero-meta { gap: 8px; }
+      .hero-meta-item { font-size: 11px; }
+      .evidence-gallery { grid-template-columns: 1fr; }
+    }
+
+    /* ============================================================
+       BÚSQUEDA RESALTADA
+       ============================================================ */
+    .highlight {
+      background: rgba(56,182,255,.35);
+      border-radius: 3px;
+      padding: 1px 2px;
+    }
+
+    /* ============================================================
+       INFORMACIÓN DEL DOCENTE
+       ============================================================ */
+    .teacher-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(26,108,222,.08);
+      margin-bottom: 32px;
+    }
+
+    .teacher-avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--accent-sky);
+      flex-shrink: 0;
+    }
+
+    .teacher-info h4 { font-size: 15px; font-weight: 700; margin-bottom: 3px; }
+    .teacher-info p { font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
+  </style>
+</head>
+
+<body>
+
+<!-- ================================================================
+     LIGHTBOX
+     ================================================================ -->
+<div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Visualizador de imagen">
+  <button class="lightbox-close" id="lightbox-close" aria-label="Cerrar"><i data-lucide="x"></i></button>
+  <img id="lightbox-img" src="" alt="Imagen ampliada" />
+</div>
+
+<!-- ================================================================
+     OVERLAY PARA CERRAR EL SIDEBAR EN MÓVIL
+     ================================================================ -->
+<div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+<!-- ================================================================
+     SIDEBAR
+     ================================================================ -->
+<aside class="sidebar" id="sidebar" role="navigation" aria-label="Menú principal">
+
+  <!-- Logo y buscador -->
+  <div class="sidebar-header">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      </div>
+      <div>
+        <div class="sidebar-logo-text">Portafolio Académico</div>
+        <div class="sidebar-logo-sub">UPLA · GSI · 2026-I</div>
+      </div>
+    </div>
+    <!-- Buscador en sidebar -->
+    <div class="sidebar-search">
+      <input type="text" id="search-input" placeholder="Buscar semana, tema…" aria-label="Buscar" />
+      <svg class="sidebar-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    </div>
+  </div>
+
+  <!-- Progreso del curso -->
+  <div class="sidebar-progress">
+    <div class="progress-label">
+      <span>Progreso del curso</span>
+      <span id="progress-pct">100%</span>
+    </div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill" id="progress-bar" style="width:0%"></div>
+    </div>
+  </div>
+
+  <!-- Navegación -->
+  <nav class="sidebar-nav">
+    <div class="nav-section-title">Navegación</div>
+    <div class="nav-item active" onclick="scrollToSection('inicio')">
+      <i data-lucide="home"></i> Inicio
+    </div>
+    <div class="nav-item" onclick="scrollToSection('unidad1')">
+      <i data-lucide="cloud"></i> Unidad I – Nube
+    </div>
+    <div class="nav-item" onclick="scrollToSection('unidad2')">
+      <i data-lucide="briefcase"></i> Unidad II – Aplicaciones
+    </div>
+    <div class="nav-item" onclick="scrollToSection('unidad3')">
+      <i data-lucide="server"></i> Unidad III – Infraestructura
+    </div>
+    <div class="nav-item" onclick="scrollToSection('unidad4')">
+      <i data-lucide="code-2"></i> Unidad IV – Desarrollo
+    </div>
+
+    <div class="nav-section-title" style="margin-top:8px;">Semanas</div>
+    <!-- Semanas 1-16 como enlaces rápidos -->
+    <script>
+      // Se renderizan dinámicamente desde JS abajo
+    </script>
+  </nav>
+
+  <!-- Footer del sidebar -->
+  <div class="sidebar-footer" style="font-size:11px;color:#4a5f82;text-align:center;line-height:1.6;">
+    © 2026 · Universidad Peruana Los Andes<br/>
+    Ingeniería de Sistemas y Computación
+  </div>
+</aside>
+
+<!-- ================================================================
+     TOPBAR
+     ================================================================ -->
+<div class="main-content" id="main-content">
+  <div class="topbar">
+    <button class="topbar-hamburger" id="hamburger" aria-label="Abrir menú">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <span class="topbar-title">Gerencia de Sistemas de Información</span>
+    <div class="topbar-right">
+      <button class="theme-toggle" id="theme-toggle" aria-label="Cambiar modo">
+        <i data-lucide="sun" id="theme-icon"></i>
+        <span id="theme-label">Modo oscuro</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       ÁREA DE CONTENIDO
+       ============================================================ -->
+  <div class="content-area" id="inicio">
+
+    <!-- ---- HERO ---- -->
+    <section class="hero animate-in">
+      <div class="hero-badge">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        Portafolio Digital · Semestre 2026-I
+      </div>
+      <h1 class="hero-title">Portafolio Académico de Evidencias</h1>
+      <div class="hero-subtitle">Gerencia de Sistemas de Información</div>
+      <div class="hero-meta">
+        <span class="hero-meta-item"><i data-lucide="building-2"></i> Universidad Peruana Los Andes</span>
+        <span class="hero-meta-item"><i data-lucide="cpu"></i> Ingeniería de Sistemas y Computación</span>
+        <span class="hero-meta-item"><i data-lucide="calendar"></i> Semestre 2026-I</span>
+        <span class="hero-meta-item"><i data-lucide="user-check"></i> Ing. Magno Teófilo Baldeón Tovar</span>
+      </div>
+
+      <!-- Presentación del estudiante -->
+      <div class="student-card">
+        <img class="student-avatar"
+             src="https://lh3.googleusercontent.com/a/ACg8ocJSN69MwMmfNAGvlzYK-1RsVTj6u_FdQ_-NvR7n3cP8rZSE92jZ=s288-c-no"
+             alt="Foto del estudiante" />
+        <div class="student-info">
+          <h3>Leiva Cardenas Antony Daniel</h3>
+          <p>
+            Estudiante de Ingeniería de Sistemas y Computación en la Universidad Peruana Los Andes, con interés en la administración de tecnologías de información, transformación digital y gestión estratégica de sistemas empresariales. Este portafolio reúne las evidencias de aprendizaje del curso Gerencia de Sistemas de Información a lo largo del semestre 2026-I.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---- ESTADÍSTICAS ---- -->
+    <div class="stats-grid animate-in animate-delay-1">
+      <div class="stat-card">
+        <div class="stat-icon" style="background:linear-gradient(135deg,#1a6cde,#38b6ff);">
+          <i data-lucide="layers"></i>
+        </div>
+        <div class="stat-number">4</div>
+        <div class="stat-label">Unidades</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:linear-gradient(135deg,#00c4cc,#38b6ff);">
+          <i data-lucide="calendar-days"></i>
+        </div>
+        <div class="stat-number">16</div>
+        <div class="stat-label">Semanas</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:linear-gradient(135deg,#6c5ce7,#1a6cde);">
+          <i data-lucide="file-text"></i>
+        </div>
+        <div class="stat-number">32</div>
+        <div class="stat-label">Evidencias</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:linear-gradient(135deg,#00b894,#00c4cc);">
+          <i data-lucide="check-circle-2"></i>
+        </div>
+        <div class="stat-number">100%</div>
+        <div class="stat-label">Completado</div>
+      </div>
+    </div>
+
+    <!-- ---- INFORMACIÓN DEL DOCENTE ---- -->
+    <div class="teacher-card animate-in animate-delay-2">
+      <img class="teacher-avatar"
+           
+           alt="Docente" />
+      <div class="teacher-info">
+        <h4>Dr. Magno Teófilo Baldeón Tovar</h4>
+        <p>Docente del curso de Gerencia de Sistemas de Información · Escuela Profesional de Ingeniería de Sistemas y Computación · Universidad Peruana Los Andes · Huancayo, Perú. Especialista en Gobierno de TI, Sistemas de Información Gerencial y Transformación Digital empresarial.</p>
+      </div>
+    </div>
+
+    <!-- ==============================================================
+         UNIDAD I
+         ============================================================== -->
+    <div id="unidad1" class="unit-separator"></div>
+
+    <div class="section-header animate-in">
+      <div class="section-icon" style="background:linear-gradient(135deg,#1a6cde,#38b6ff);">
+        <i data-lucide="cloud"></i>
+      </div>
+      <div>
+        <h2 class="section-title">Unidad I: Administración en la Nube</h2>
+        <p class="section-description">Semanas 1–4 · Sistemas de Información, Computación en la Nube e Infraestructura de TI</p>
+      </div>
+    </div>
+
+    <!-- SEMANA 1 -->
+    <div class="week-card animate-in" id="semana-1" data-keywords="información empresa sistemas tipos componentes">
+      <div class="week-card-header" onclick="toggleWeek(this)">
+        <div class="week-number">S1</div>
+        <div class="week-card-meta">
+          <div class="week-card-title">La Información en la Empresa y Sistemas de Información</div>
+          <div class="week-card-topics">La información en la empresa · Sistemas de Información · Tipos · Componentes</div>
+          <div class="week-card-tags">
+            <span class="tag">Información</span>
+            <span class="tag">SI</span>
+            <span class="tag">Componentes</span>
+          </div>
+        </div>
+        <svg class="week-card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="week-card-body">
+        <div class="week-card-content">
+          <!-- Evidencia 1 -->
+          <div class="evidence-block">
+            <div class="evidence-title"><i data-lucide="book-open"></i>Mapa Conceptual: La Información en la Empresa</div>
+            <div class="evidence-date"><i data-lucide="calendar"></i>Fecha: 10 de marzo de 2026</div>
+            <div class="evidence-desc">
+              La información es el recurso estratégico más valioso de toda organización moderna. En el contexto empresarial, los datos se transforman en información a través de un proceso de procesamiento y contextualización. Los Sistemas de Información (SI) son conjuntos de componentes interrelacionados que recolectan, procesan, almacenan y distribuyen información para apoyar la toma de decisiones y el control en una organización (Laudon &amp; Laudon, 2020). Existen tres tipos principales de SI: Sistemas de Procesamiento de Transacciones (TPS), Sistemas de Información Gerencial (MIS) y Sistemas de Soporte a la Toma de Decisiones (DSS). Los componentes fundamentales de un SI son: hardware, software, datos, personas y procedimientos.
+            </div>
+            <div class="evidence-gallery">
+              <img class="gallery-img" src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&h=260&fit=crop" alt="Sistemas de información en empresa" onclick="openLightbox(this.src)" />
+              <img class="gallery-img" src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=260&fit=crop" alt="Dashboard de datos empresariales" onclick="openLightbox(this.src)" />
+              <img class="gallery-img" src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=260&fit=crop" alt="Análisis de información" onclick="openLightbox(this.src)" />
+            </div>
+            <div class="evidence-actions">
+              <a href="https://www.ibm.com/topics/information-systems" target="_blank" class="btn btn-outline"><i data-lucide="external-link"></i>Fuente IBM</a>
+              <a href="https://drive.google.com/drive/my-drive" target="_blank" class="btn btn-primary"><i data-lucide="download"></i>Descargar evidencia</a>
+              <a href="https://es.wikipedia.org/wiki/Sistema_de_informaci%C3%B3n" target="_blank" class="btn btn-sky"><i data-lucide="link"></i>Referencia</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEMANA 2 -->
+    <div class="week-card animate-in" id="semana-2" data-keywords="computación nube cloud modelos despliegue iaas paas saas">
+      <div class="week-card-header" onclick="toggleWeek(this)">
+        <div class="week-number">S2</div>
+        <div class="week-card-meta">
+          <div class="week-card-title">Computación en la Nube y Modelos de Despliegue</div>
+          <div class="week-card-topics">Cloud Computing · IaaS · PaaS · SaaS · Nube pública, privada, híbrida</div>
+          <div class="week-card-tags">
+            <span class="tag">Cloud</span>
+            <span class="tag">IaaS</span>
+            <span class="tag">PaaS</span>
+            <span class="tag">SaaS</span>
+          </div>
+        </div>
+        <svg class="week-card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="week-card-body">
+        <div class="week-card-content">
+          <div class="evidence-block">
+            <div class="evidence-title"><i data-lucide="cloud"></i>Informe: Computación en la Nube y Modelos de Despliegue</div>
+            <div class="evidence-date"><i data-lucide="calendar"></i>Fecha: 17 de marzo de 2026</div>
+            <div class="evidence-desc">
+              La computación en la nube (cloud computing) es el suministro de servicios de TI —servidores, almacenamiento, bases de datos, redes, software, analítica e inteligencia— a través de Internet para ofrecer una innovación más rápida, recursos flexibles y economías de escala (Microsoft Azure, 2024). Los cuatro modelos de despliegue son: <strong>Nube pública</strong> (Amazon AWS, Google Cloud, Microsoft Azure), <strong>Nube privada</strong> (infraestructura dedicada para una sola organización), <strong>Nube híbrida</strong> (combinación de ambas) y <strong>Nube comunitaria</strong>. Los modelos de servicio incluyen IaaS (Infraestructura como Servicio), PaaS (Plataforma como Servicio) y SaaS (Software como Servicio). Actualmente AWS lidera el mercado global con un 31% de cuota, seguido de Azure con 24% y Google Cloud con 12%.
+            </div>
+            <div class="evidence-gallery">
+              <img class="gallery-img" src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=400&h=260&fit=crop" alt="Servidores cloud" onclick="openLightbox(this.src)" />
+              <img class="gallery-img" src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&h=260&fit=crop" alt="Tecnología nube" onclick="openLightbox(this.src)" />
+              <img class="gallery-img" src="https://images.unsplash.com/photo-1591808216268-ce0b82787efe?w=400&h=260&fit=crop" alt="Centro de datos" onclick="openLightbox(this.src)" />
+            </div>
+            <div class="evidence-actions">
+              <a href="https://aws.amazon.com/es/what-is-cloud-computing/" target="_blank" class="btn btn-outline"><i data-lucide="external-link"></i>AWS Cloud</a>
+              <a href="https://azure.microsoft.com/es-es/resources/cloud-computing-dictionary/what-is-cloud-computing" target="_blank" class="btn btn-primary"><i data-lucide="external-link"></i>Azure Cloud</a>
+              <a href="https://cloud.google.com/learn/what-is-cloud-computing?hl=es" target="_blank" class="btn btn-sky"><i data-lucide="link"></i>Google Cloud</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEMANA 3 -->
+    <div class="week-card animate-in" id="semana-3" data-keywords="administración nube funciones tecnología gestión cloud management">
+      <div class="week-card-header" onclick="toggleWeek(this)">
+        <div class="week-number">S3</div>
+        <div class="week-card-meta">
+          <div class="week-card-title">Administración en la Nube: Funciones y Tecnología</div>
+          <div class="week-card-topics">Cloud Management · Funciones administrativas · Herramientas de gestión cloud</div>
+          <div class="week-card-tags">
+            <span class="tag">Administración</span>
+            <span class="tag">Cloud Mgmt</span>
+            <span class="tag">Tecnología</span>
+          </div>
+        </div>
+        <svg class="week-card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="week-card-body">
+        <div class="week-card-content">
+          <div class="evidence-block">
+            <div class="evidence-title"><i data-lucide="settings"></i>Presentación: Administración en la Nube</div>
+            <div class="evidence-date"><i data-lucide="calendar"></i>Fecha: 24 de marzo de 2026</div>
+            <div class="evidence-desc">
+              La administración en la nube comprende el conjunto de funciones orientadas a supervisar, gestionar y optimizar los recursos y servicios cloud de una organización. Las funciones principales incluyen: <strong>aprovisionamiento de recursos</strong>, <strong>monitoreo del rendimiento</strong>, <strong>gestión de costos (FinOps)</strong>, <strong>seguridad y cumplimiento</strong> y <strong>recuperación ante desastres</strong>. Las herramientas líderes son: AWS Management Console, Azure Portal, Google Cloud Console, Terraform (infraestructura como código) y Kubernetes para orquestación de contenedores. La adopción de prácticas DevOps y CI/CD acelera la entrega de valor reduciendo el time-to-market hasta en un 50% (Gartner, 2025).
+            </div>
+            <div class="evidence-gallery">
+              <img class="gallery-img" src="https://images.unsplash.com/photo-1667984390527-850f63192709?w=400&h=260&fit=crop" alt="Consola de administración cloud" onclick="openLightbox(this.src)" />
+              <img class="gallery-img" src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=260&fit=crop" alt="Tecnología de servidores" onclick="openLightbox(this.src)" />
+              <img class="gallery-img" src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=400&h=260&fit=crop" alt="Equipo de tecnología" onclick="openLightbox(this.src)" />
+            </div>
+            <div class="evidence-actions">
+              <a href="https://docs.aws.amazon.com/es_es/management-console/latest/userguide/what-is.html" target="_blank" class="btn btn-outline"><i data-lucide="external-link"></i>AWS Console Docs</a>
+              <a href="https://kubernetes.io/es/docs/concepts/overview/" target="_blank" class="btn btn-primary"><i data-lucide="link"></i>Kubernetes</a>
+              <a href="https://www.terraform.io/intro" target="_blank" class="btn btn-sky"><i data-lucide="link"></i>Terraform</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEMANA 4 -->
+    <div class="week-card animate-in" id="semana-4" data-keywords="infraestructura TI componentes tipos hardware redes datacenter">
+      <div class="week-card-header" onclick="toggleWeek(this)">
+        <div class="week-number">S4</div>
+        <div class="week-card-meta">
+          <div class="week-card-title">Infraestructura de TI: Componentes y Tipos</div>
+          <div class="week-card-topics">Infraestructura de TI · Componentes · Tipos de infraestructura · On-premise vs Cloud</div>
+          <div class="week-card-tags">
+            <span class="tag">Infraestructura</span>
+            <span class="tag">TI</span>
+            <span class="tag">Datacenter</span>
+          </div>
+        </div>
+        <svg class="week-card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="week-card-body">
+        <div class="week-card-content">
+          <div class="evidence-block">
+            <div class="evidence-title"><i data-lucide="server"></i>Diagrama de Infraestructura de TI Empresarial</div>
+            <div class="evidence-date"><i data-lucide="calendar"></i>Fecha: 31 de marzo de 2026</div>
+            <div class="evidence-desc">
+              La infraestructura de TI es el conjunto de componentes físicos y virtuales que sustentan la tecnología de información empresarial. Sus componentes principales son: <strong>Hardware</strong> (servidores, PCs, dispositivos de red), <strong>Software</strong> (SO, aplicaciones, middleware), <strong>Redes</strong> (LAN, WAN, Internet), <strong>Almacenamiento</strong> (SAN, NAS, cloud storage) y <strong>Personas</strong> (equipo de TI). Los tipos de infraestructura incluyen: <em>tradicional (on-premise)</em>, <em>cloud</em>, <em>hiperconvergente (HCI)</em> y <em>definida por software (SDI)</em>. La infraestructura hiperconvergente está creciendo a una tasa del 21% anual según IDC (2025), impulsada por su capacidad de escalar horizontalmente y reducir costos operativos.
+            </div>
+            <div class="evidence-gallery">
+              <img class="gallery-img" src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&h=260&fit=crop" alt="Centro de datos empresarial" onclick="openLightbox(this.src)" />
+              <img class="gallery-img" src="https://images.unsplash.com/photo-1573164574572-cb89e39749b4?w=400&h=260&fit=crop" alt="Racks de servidores" onclick="openLightbox(this.src)" />
+              <img class="gallery-img" src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=400&h=260&fit=crop" alt="Red empresarial" onclick="openLightbox(this.src)" />
+            </div>
+            <div class="evidence-actions">
+              <a href="https://www.ibm.com/es-es/topics/it-infrastructure" target="_blank" class="btn btn-outline"><i data-lucide="external-link"></i>IBM IT Infrastructure</a>
+              <a href="https://www.cisco.com/c/es_es/solutions/enterprise-networks/what-is-network-infrastructure.html" target="_blank" class="btn btn-primary"><i data-lucide="link"></i>Cisco Networks</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==============================================================
+         UNIDAD II
+         ============================================================== -->
+    <div id="unidad2" class="unit-separator"></div>
+
+    <div class="section-header animate-in">
+      <div class="section-icon" style="background:linear-gradient(135deg,#6c5ce7,#1a6cde);">
+        <i data-lucide="briefcase"></i>
+      </div>
+      <div>
+        <h2 class="section-title">Unidad II: Aplicaciones Empresariales de Sistemas de Información</h2>
+        <p class="section-description">Semanas 5–8 · BI, ERP, CRM, SCM, SIG y Nube Híbrida</p>
+      </div>
+    </div>
+
+    <!-- SEMANA 5 -->
+    <div class="week-card animate-in" id="semana-5" data-keywords="negocios inteligencia business intelligence bases datos administración información BI">
+      <div class="week-card-header" onclick="toggleWeek(this)">
+        <div class="week-number">S5</div>
+        <div class="week-card-meta">
+          <div class="week-card-title">Sistemas de Información en los Negocios e Inteligencia de Negocios</div>
+          <div class="week-card-topics">SI en negocios · Business Intelligence · Bases de datos · Administración de información</div>
+          <div class="week-card-tags">
+            <span class="tag">BI</span>
+            <span class="tag">Bases de datos</span>
+            <span class="tag">Analytics</span>
+          </div>
+        </div>
+        <svg class="week-card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="week-card-body">
+        <div class="week-card-content">
+          <div class="evidence-block">
+            <div class="evidence-title"><i data-lucide="bar-chart-3"></i>Caso de Estudio: BI en Empresa Peruana</div>
+            <div class="evidence-date"><i data-lucide="calendar"></i>Fecha: 7 de abril de 2026</div>
+            <div class="evidence-desc">
+              La Inteligencia de Negocios (BI) engloba las estrategias, procesos y tecnologías que las empresas utilizan para convertir datos crudos en información significativa y útil para análisis empresariales (Gartner, 2024). El mercado global de BI alcanzará los USD 43,03 mil millones en 2028 a una CAGR del 8,7%. Las herramientas líderes incluyen Power BI (Microsoft), Tableau (Salesforce), Qlik y Looker (Google). Una base de datos bien administrada permite implementar cubos OLAP, datamarts y data warehouses que alimentan dashboards ejecutivos en tiempo real. La administración de información garantiza la calidad, integridad, disponibilidad y seguridad de los datos corporativos.
+            </div>
+            <div class="evidence-gallery">
+              <img class="gallery-img" src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=260&fit=crop" alt="Dashboard de Business Intelligence" onclick="openLightbox(this.src)" />
+              <img class="gallery-img" src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=400&h=260&fit=crop" alt="Análisis de datos" onclick="openLightbox(this.src)" />
+              <img class="gallery-img" src="https://images.unsplash.com/photo-1543286386-713bdd548da4?w=400&h=260&fit=crop" alt="Gráficos de negocios" onclick="openLightbox(this.src)" />
+            </div>
+            <div class="evidence-actions">
+              <a href="https://powerbi.microsoft.com/es-es/" target="_blank" class="btn btn-outline"><i data-lucide="external-link"></i>Power BI</a>
+              <a href="https://www.tableau.com/es-es/learn/articles/business-intelligence" target="_blank" class="btn btn-primary"><i data-lucide="link"></i>Tableau BI Guide</a>
+              <a href="https://aws.amazon.com/es/what-is/business-intelligence/" target="_blank" class="btn btn-sky"><i data-lucide="link"></i>AWS BI</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEMANA 6 -->
+    <div class="week-card animate-in" id="semana-6" data-keywords="diseño estructura informática sistemas gerencial arquitectura integral">
+      <div class="week-card-header" onclick="toggleWeek(this)">
+        <div class="week-number">S6</div>
+        <div class="week-card-meta">
+          <div class="week-card-title">Diseño de la Estructura Informática Integral de los SIG</div>
+          <div class="week-card-topics">Arquitectura de SI Gerenciales · Diseño informático · Estructura integral</div>
+          <div class="week-card-tags">
+            <span class="tag">Arquitectura</span>
+            <span class="tag">SIG</span>
+            <span class="tag">Diseño</span>
+          </div>
+        </div>
+        <svg class="week-card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="week-card-body">
+        <div class="week-card-content">
+          <div class="evidence-block">
+            <div class="evidence-title"><i data-lucide="layout-dashboard"></i>Diagrama: Estructura Informática Integral de los SIG</div>
+            <div class="evidence-date"><i data-lucide="calendar"></i>Fecha: 14 de abril de 2026</div>
+            <div class="evidence-desc">
+              Un Sistema de Información Gerencial (SIG/MIS) provee a los gerentes de nivel medio la información necesaria para planificación, control y toma de decisiones. Su diseño arquitectónico integral contempla: <strong>capa de datos</strong> (data warehouse, bases relacionales, NoSQL), <strong>capa de procesamiento</strong> (ETL, reglas de negocio, analytics), <strong>capa de presentación</strong> (dashboards, reportes, alertas) e <strong>integración con sistemas transaccionales</strong> (ERP, CRM, SCM). El framework TOGAF (The Open Group Architecture Framework) y ArchiMate son referencias estándar para modelar arquitecturas empresariales de TI alineadas con la estrategia de negocio.
+            </div>
+            <div class="evidence-gallery">
+              <img class="gallery-img" src="https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=400&h=260&fit=crop" alt="Arquitectura de sistemas" onclick="openLightbox(this.src)" />
+              <img class="gallery-img" src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=260&fit=crop" alt="Diseño de sistemas informativos" onclick="openLightbox(this.src)" />
+              <img class="gallery-img" src="https://images.unsplash.com/photo-1573164574711-b2787a28e9e2?w=400&h=260&fit=crop" alt="Infraestructura empresarial" onclick="openLightbox(this.src)" />
+            </div>
+            <div class="evidence-actions">
+              <a href="https://www.opengroup.org/togaf" target="_blank" class="btn btn-outline"><i data-lucide="external-link"></i>TOGAF</a>
+              <a href="https://www.ibm.com/es-es/topics/management-information-systems" target="_blank" class="btn btn-primary"><i data-lucide="link"></i>IBM MIS</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEMANA 7 -->
+    <div class="week-card animate-in" id="semana-7" data-keywords="aplicaciones empresariales EAS CRM SCM ERP SIG gestión relación cliente cadena suministro planificación recursos">
+      <div class="week-card-header" onclick="toggleWeek(this)">
+        <div class="week-number">S7</div>
+        <div class="week-card-meta">
+          <div class="week-card-title">Aplicaciones Empresariales: CRM, SCM, ERP y SIG</div>
+          <div class="week-card-topics">Enterprise Application Suite · CRM · SCM · ERP · SIG</div>
+          <div class="week-card-tags">
+            <span class="tag">ERP</span>
+            <span class="tag">CRM</span>
+            <span class="tag">SCM</span>
+            <span class="tag">EAS</span>
+          </div>
+        </div>
+        <svg class="week-card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="week-card-body">
+        <div class="week-card-content">
+          <div class="evidence-block">
+            <div class="evidence-title"><i data-lucide="grid-3x3"></i>Cuadro Comparativo: ERP, CRM, SCM y SIG</div>
+            <div class="evidence-date"><i data-lucide="calendar"></i>Fecha: 21 de abril de 2026</div>
+            <div class="evidence-desc">
+              Las aplicaciones empresariales son suites de software que integran procesos de negocio en toda la organización:<br/>
+              <strong>ERP (Enterprise Resource Planning):</strong> Integra finanzas, RRHH, producción y logística. Líderes: SAP S/4HANA, Oracle ERP Cloud, Microsoft Dynamics 365.<br/>
+              <strong>CRM (Customer Relationship Management):</strong> Gestiona las relaciones con clientes en ventas, marketing y soporte. Líderes: Salesforce, HubSpot, Zoho CRM.<br/>
+              <strong>SCM (Supply Chain Management):</strong> Optimiza la cadena de suministro desde proveedores hasta clientes. Líderes: Oracle SCM, SAP Ariba, Blue Yonder.<br/>
+              <strong>SIG (Sistema de Información Gerencial):</strong> Provee reportes estratégicos a gerentes. El mercado de ERP alcanzó USD 78,4 mil millones en 2025 (Statista, 2025).
+            </div>
+            <div class="evidence-gallery">
+              <img class="gallery-img" src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=400&h=260&fit=crop" alt="Software ERP empresarial" onclick="openLightbox(this.src)" />
+              <img class="gallery-img" src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=400&h=260&fit=crop" alt="CRM gestión clientes" onclick="openLightbox(this.src)" />
+              <img class="gallery-img" src="https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=400&h=260&fit=crop" alt="Cadena de suministro" onclick="openLightbox(this.src)" />
+            </div>
+            <div class="evidence-actions">
+              <a href="https://www.sap.com/latinamerica/products/erp/s4hana-erp.html" target="_blank" class="btn btn-outline"><i data-lucide="external-link"></i>SAP ERP</a>
+              <a href="https://www.salesforce.com/es/crm/" target="_blank" class="btn btn-primary"><i data-lucide="link"></i>Salesforce CRM</a>
+              <a href="https://www.oracle.com/es/scm/what-is-supply-chain-management.html" target="_blank" class="btn btn-sky"><i data-lucide="link"></i>Oracle SCM</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEMANA 8 -->
+    <div class="week-card animate-in" id="semana-8" data-keywords="nube híbrida gestión aplicaciones software cloud hybrid">
+      <div class="week-card-header" onclick="toggleWeek(this)">
+        <div class="week-number">S8</div>
+        <div class="week-card-meta">
+          <div class="week-card-title">Gestión de Aplicaciones para la Nube Híbrida</div>
+          <div class="week-card-topics">Nube híbrida · Software de gestión · Multicloud · Kubernetes · OpenShift</div>
+          <div class="week-card-tags">
+            <span class="tag">Nube Híbrida</span>
+            <span class="tag">Multicloud</span>
+            <span class="tag">Kubernetes</span>
+          </div>
+        </div>
+        <svg class="week-card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="week-card-body">
+        <div class="week-card-content">
+          <div class="evidence-block">
+            <div class="evidence-title"><i data-lucide="git-merge"></i>Informe: Arquitectura de Nube Híbrida con Kubernetes</div>
+            <div class="evidence-date"><i data-lucide="calendar"></i>Fecha: 28 de abril de 2026</div>
+            <div class="evidence-desc">
+              La nube híbrida combina infraestructura on-premise con servicios de nube pública, permitiendo a las empresas mantener cargas de trabajo sensibles en sus propios centros de datos mientras escalan dinámicamente en la nube. Según IBM (2025), el 77% de las empresas Fortune 500 utilizan entornos multicloud. Las herramientas líderes incluyen: <strong>Red Hat OpenShift</strong> (gestión de contenedores híbrida), <strong>Azure Arc</strong> (gestión unificada multicloud), <strong>Google Anthos</strong> y <strong>AWS Outposts</strong>. El software de nube híbrida permite administrar, monitorear y proteger aplicaciones distribuidas en cualquier entorno mediante una consola unificada y políticas de seguridad consistentes.
+            </div>
+            <div class="evidence-gallery">
+              <img class="gallery-img" src="https://images.unsplash.com/photo-1517420704952-d9f39e95b43e?w=400&h=260&fit=crop" alt="Nube híbrida arquitectura" onclick="openLightbox(this.src)" />
+              <img class="gallery-img" src="https://images.unsplash.com/photo-1593642634315-48f5414c3ad9?w=400&h=260&fit=crop" alt="Gestión cloud computing" onclick="openLightbox(this.src)" />
+              <img class="gallery-img" src="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=400&h=260&fit=crop" alt="Contenedores y microservicios" onclick="openLightbox(this.src)" />
+            </div>
+            <div class="evidence-actions">
+              <a href="https://www.redhat.com/es/topics/cloud-computing/what-is-hybrid-cloud" target="_blank" class="btn btn-outline"><i data-lucide="external-link"></i>RedHat Hybrid Cloud</a>
+              <a href="https://azure.microsoft.com/es-es/solutions/hybrid-cloud-app/" target="_blank" class="btn btn-primary"><i data-lucide="link"></i>Azure Arc</a>
+              <a href="https://cloud.google.com/anthos?hl=es" target="_blank" class="btn btn-sky"><i data-lucide="link"></i>Google Anthos</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==============================================================
+         UNIDAD III
+         ============================================================== -->
+    <div id="unidad3" class="unit-separator"></div>
+
+    <div class="section-header animate-in">
+      <div class="section-icon" style="background:linear-gradient(135deg,#00b894,#00c4cc);">
+        <i data-lucide="server"></i>
+      </div>
+      <div>
+        <h2 class="section-title">Unidad III: Infraestructura de Tecnologías de Información</h2>
+        <p class="section-description">Semanas 9–12 · Gobierno de TI, ITIL, Gestión de Servicios y del Cambio</p>
+      </div>
+    </div>
+
+    <!-- SEMANA 9 -->
+    <div class="week-card animate-in" id="semana-9" data-keywords="gobierno TI alineamiento estratégico creación valor gestión procesos COBIT ITIL">
+      <div class="week-card-header" onclick="toggleWeek(this)">
+        <div class="week-number">S9</div>
+        <div class="week-card-meta">
+          <div class="week-card-title">Gobierno de TI: Alineamiento Estratégico y Creación de Valor</div>
+          <div class="week-card-topics">IT Governance · COBIT 2019 · Alineamiento estratégico · Creación de valor · Gestión de procesos</div>
+          <div class="week-card-tags">
+            <span class="tag">Gobierno TI</span>
+            <span class="tag">COBIT</span>
+            <span class="tag">Estrategia</span>
+          </div>
+        </div>
+        <svg class="week-card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="week-card-body">
+        <div class="week-card-content">
+          <div class="evidence-block">
+            <div class="evidence-title"><i data-lucide="shield-check"></i>Análisis: Gobierno de TI con COBIT 2019</div>
+            <div class="evidence-date"><i data-lucide="calendar"></i>Fecha: 5 de mayo de 2026</div>
+            <div class="evidence-desc">
+              El Gobierno de TI es el sistema mediante el cual la TI corporativa es dirigida y controlada, asegurando que esté alineada con los objetivos estratégicos del negocio. COBIT 2019 (Control Objectives for Information and Related Technologies) de ISACA es el marco de referencia global más utilizado. Sus principios incluyen: <strong>satisfacer las necesidades de las partes interesadas</strong>, <strong>cubrir la empresa de extremo a extremo</strong>, <strong>aplicar un marco único integrado</strong> y <strong>separar el gobierno de la gestión</strong>. El alineamiento estratégico asegura que la inversión en TI genere valor medible para el negocio, mientras la gestión de procesos identifica, documenta y optimiza los flujos de trabajo de TI para mayor eficiencia y calidad.
+            </div>
+            <div class="evidence-gallery">
+              <img class="gallery-img" src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=400&h=260&fit=crop" alt="Gobierno corporativo" onclick="openLightbox(this.src)" />
+              <img class="gallery-img" src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=260&fit=crop" alt="Estrategia empresarial" onclick="openLightbox(this.src)" />
+              <img class="gallery-img" src="https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=400&h=260&fit=crop" alt="Alineamiento de objetivos" onclick="openLightbox(this.src)" />
+            </div>
+            <div class="evidence-actions">
+              <a href="https://www.isaca.org/resources/cobit" target="_blank" class="btn btn-outline"><i data-lucide="external-link"></i>ISACA COBIT 2019</a>
+              <a href="https://www.ibm.com/es-es/topics/it-governance" target="_blank" class="btn btn-primary"><i data-lucide="link"></i>IBM IT Governance</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEMANA 10 -->
+    <div class="week-card animate-in" id="semana-10" data-keywords="gestión servicios estrategia servicio ITIL service management">
+      <div class="week-card-header" onclick="toggleWeek(this)">
+        <div class="week-number">S10</div>
+        <div class="week-card-meta">
+          <div class="week-card-title">Gestión de Servicios: Estrategia del Servicio</div>
+          <div class="week-card-topics">ITSM · ITIL 4 · Estrategia del servicio · Valor al cliente · Gestión de la demanda</div>
+          <div class="week-card-tags">
+            <span class="tag">ITSM</span>
+            <span class="tag">ITIL 4</span>
+            <span class="tag">Servicio</span>
+          </div>
+        </div>
+        <svg class="week-card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="week-card-body">
+        <div class="week-card-content">
+          <div class="evidence-block">
+            <div class="evidence-title"><i data-lucide="target"></i>Presentación: ITIL 4 – Estrategia del Servicio</div>
+            <div class="evidence-date"><i data-lucide="calendar"></i>Fecha: 12 de mayo de 2026</div>
+            <div class="evidence-desc">
+              ITIL 4 (Information Technology Infrastructure Library) es el marco de mejores prácticas para la gestión de servicios de TI más adoptado globalmente, con más de 2 millones de certificados emitidos (AXELOS, 2025). La <strong>Estrategia del Servicio</strong> define cómo un proveedor de servicios TI crea valor para sus clientes y para sí mismo. Sus procesos clave son: <strong>Gestión Estratégica del Servicio</strong>, <strong>Gestión del Portafolio de Servicios</strong>, <strong>Gestión de la Demanda</strong> y <strong>Gestión Financiera para Servicios TI</strong>. El concepto central de ITIL 4 es el <em>Sistema de Valor del Servicio (SVS)</em> que describe cómo todos los componentes y actividades de una organización trabajan juntos para facilitar la creación de valor.
+            </div>
+            <div class="evidence-gallery">
+              <img class="gallery-img" src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&h=260&fit=crop" alt="Gestión de servicios TI" onclick="openLightbox(this.src)" />
+              <img class="gallery-img" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=260&fit=crop" alt="Estrategia de servicios" onclick="openLightbox(this.src)" />
+              <img class="gallery-img" src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&h=260&fit=crop" alt="Gestión IT" onclick="openLightbox(this.src)" />
+            </div>
+            <div class="evidence-actions">
+              <a href="https://www.axelos.com/certifications/itil-service-management/" target="_blank" class="btn btn-outline"><i data-lucide="external-link"></i>AXELOS ITIL 4</a>
+              <a href="https://www.servicenow.com/es/products/itsm/what-is-itsm.html" target="_blank" class="btn btn-primary"><i data-lucide="link"></i>ServiceNow ITSM</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEMANA 11 -->
+    <div class="week-card animate-in" id="semana-11" data-keywords="diseño servicio transición cambio ITIL service design transition">
+      <div class="week-card-header" onclick="toggleWeek(this)">
+        <div class="week-number">S11</div>
+        <div class="week-card-meta">
+          <div class="week-card-title">Diseño y Transición del Servicio</div>
+          <div class="week-card-topics">ITIL – Service Design · Service Transition · Catálogo de servicios · SLA · Gestión de la capacidad</div>
+          <div class="week-card-tags">
+            <span class="tag">Diseño SI</span>
+            <span class="tag">SLA</span>
+            <span class="tag">Transición</span>
+          </div>
+        </div>
+        <svg class="week-card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="week-card-body">
+        <div class="week-card-content">
+          <div class="evidence-block">
+            <div class="evidence-title"><i data-lucide="pencil-ruler"></i>Ejercicio: Diseño de Catálogo de Servicios y SLA</div>
+            <div class="evidence-date"><i data-lucide="calendar"></i>Fecha: 19 de mayo de 2026</div>
+            <div class="evidence-desc">
+              El <strong>Diseño del Servicio</strong> define cómo se construirán y mejorarán los servicios TI para cumplir los requisitos del negocio. Sus procesos son: diseño de la solución del servicio, gestión del catálogo de servicios, gestión de la disponibilidad, gestión de la capacidad, gestión de la continuidad, gestión de la seguridad de información y gestión de proveedores. Los Acuerdos de Nivel de Servicio (SLA) formalizan los compromisos entre proveedor y cliente. La <strong>Transición del Servicio</strong> garantiza que los servicios nuevos o modificados cumplan los requisitos especificados antes de pasar a producción, incluyendo pruebas, validación y pilotos controlados.
+            </div>
+            <div class="evidence-gallery">
+              <img class="gallery-img" src="https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?w=400&h=260&fit=crop" alt="Diseño de servicios" onclick="openLightbox(this.src)" />
+              <img class="gallery-img" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=260&fit=crop" alt="Análisis de capacidad" onclick="openLightbox(this.src)" />
+              <img class="gallery-img" src="https://images.unsplash.com/photo-1578574577315-3fbeb0cecdc2?w=400&h=260&fit=crop" alt="Documentación de servicios" onclick="openLightbox(this.src)" />
+            </div>
+            <div class="evidence-actions">
+              <a href="https://www.atlassian.com/es/itsm/service-request-management/sla" target="_blank" class="btn btn-outline"><i data-lucide="external-link"></i>Atlassian SLA Guide</a>
+              <a href="https://docs.servicenow.com/bundle/washingtondc-it-service-management/page/product/service-catalog-management/concept/c_ServiceCatalogManagement.html" target="_blank" class="btn btn-primary"><i data-lucide="link"></i>Service Catalog</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEMANA 12 -->
+    <div class="week-card animate-in" id="semana-12" data-keywords="gestión cambio conocimiento eventos incidencias centro servicio ITSM help desk">
+      <div class="week-card-header" onclick="toggleWeek(this)">
+        <div class="week-number">S12</div>
+        <div class="week-card-meta">
+          <div class="week-card-title">Gestión del Cambio, Conocimiento, Eventos, Incidencias y Centro de Servicio</div>
+          <div class="week-card-topics">Change Mgmt · Knowledge Mgmt · Event Mgmt · Incident Mgmt · Service Desk</div>
+          <div class="week-card-tags">
+            <span class="tag">Cambio</span>
+            <span class="tag">Incidencias</span>
+            <span class="tag">Service Desk</span>
+          </div>
+        </div>
+        <svg class="week-card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="week-card-body">
+        <div class="week-card-content">
+          <div class="evidence-block">
+            <div class="evidence-title"><i data-lucide="git-branch"></i>Caso Práctico: Implementación de Service Desk con ITIL</div>
+            <div class="evidence-date"><i data-lucide="calendar"></i>Fecha: 26 de mayo de 2026</div>
+            <div class="evidence-desc">
+              La <strong>Gestión del Cambio</strong> controla el ciclo de vida de todos los cambios en la infraestructura TI para minimizar interrupciones. La <strong>Gestión del Conocimiento</strong> mantiene una base de conocimiento (KEDB) que acelera la resolución de incidencias. La <strong>Gestión de Eventos</strong> monitorea la infraestructura para detectar anomalías. La <strong>Gestión de Incidencias</strong> restaura la operación normal del servicio lo más rápido posible. El <strong>Centro de Servicio (Service Desk)</strong> es el punto único de contacto entre usuarios y TI; herramientas como Jira Service Management, ServiceNow y Zendesk implementan estas prácticas. El tiempo medio de resolución (MTTR) es el KPI principal de un Service Desk eficiente.
+            </div>
+            <div class="evidence-gallery">
+              <img class="gallery-img" src="https://images.unsplash.com/photo-1534972195531-d756b9bfa9f2?w=400&h=260&fit=crop" alt="Centro de servicios TI" onclick="openLightbox(this.src)" />
+              <img class="gallery-img" src="https://images.unsplash.com/photo-1588196749597-9ff075ee6b5b?w=400&h=260&fit=crop" alt="Soporte técnico" onclick="openLightbox(this.src)" />
+              <img class="gallery-img" src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400&h=260&fit=crop" alt="Equipo de soporte" onclick="openLightbox(this.src)" />
+            </div>
+            <div class="evidence-actions">
+              <a href="https://www.atlassian.com/es/software/jira/service-management" target="_blank" class="btn btn-outline"><i data-lucide="external-link"></i>Jira Service Mgmt</a>
+              <a href="https://www.servicenow.com/es/products/itsm/what-is-incident-management.html" target="_blank" class="btn btn-primary"><i data-lucide="link"></i>Incident Management</a>
+              <a href="https://support.zendesk.com/hc/es" target="_blank" class="btn btn-sky"><i data-lucide="link"></i>Zendesk</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==============================================================
+         UNIDAD IV
+         ============================================================== -->
+    <div id="unidad4" class="unit-separator"></div>
+
+    <div class="section-header animate-in">
+      <div class="section-icon" style="background:linear-gradient(135deg,#fd79a8,#6c5ce7);">
+        <i data-lucide="code-2"></i>
+      </div>
+      <div>
+        <h2 class="section-title">Unidad IV: Desarrollo de Sistemas de Información en la Empresa</h2>
+        <p class="section-description">Semanas 13–16 · Ciclo de Vida, Metodologías, Implementación y Proyecto Final</p>
+      </div>
+    </div>
+
+    <!-- SEMANA 13 -->
+    <div class="week-card animate-in" id="semana-13" data-keywords="ciclo vida desarrollo SDLC metodologías software scrum agile waterfall">
+      <div class="week-card-header" onclick="toggleWeek(this)">
+        <div class="week-number">S13</div>
+        <div class="week-card-meta">
+          <div class="week-card-title">Ciclo de Vida del Desarrollo de Sistemas y Metodologías</div>
+          <div class="week-card-topics">SDLC · Metodologías ágiles · Scrum · Kanban · RUP · Cascada</div>
+          <div class="week-card-tags">
+            <span class="tag">SDLC</span>
+            <span class="tag">Scrum</span>
+            <span class="tag">Agile</span>
+          </div>
+        </div>
+        <svg class="week-card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="week-card-body">
+        <div class="week-card-content">
+          <div class="evidence-block">
+            <div class="evidence-title"><i data-lucide="git-commit-horizontal"></i>Mapa Comparativo: SDLC y Metodologías de Desarrollo</div>
+            <div class="evidence-date"><i data-lucide="calendar"></i>Fecha: 2 de junio de 2026</div>
+            <div class="evidence-desc">
+              El Ciclo de Vida del Desarrollo de Sistemas (SDLC) es el proceso estructurado para planificar, crear, probar y desplegar un sistema de información. Sus fases son: <strong>1. Planificación</strong>, <strong>2. Análisis de requisitos</strong>, <strong>3. Diseño</strong>, <strong>4. Implementación</strong>, <strong>5. Pruebas</strong>, <strong>6. Despliegue</strong> y <strong>7. Mantenimiento</strong>. Las metodologías principales son:<br/>
+              <em>Cascada (Waterfall):</em> secuencial y documentada, adecuada para requisitos estables.<br/>
+              <em>Scrum:</em> iterativa con sprints de 2–4 semanas, ideal para proyectos con cambios frecuentes.<br/>
+              <em>RUP (Rational Unified Process):</em> centrada en arquitectura y riesgos.<br/>
+              <em>Kanban:</em> flujo continuo con tablero visual de tareas. El 71% de las organizaciones utilizan metodologías ágiles según el State of Agile 2025 (Digital.ai).
+            </div>
+            <div class="evidence-gallery">
+              <img class="gallery-img" src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&h=260&fit=crop" alt="Desarrollo de software" onclick="openLightbox(this.src)" />
+              <img class="gallery-img" src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=400&h=260&fit=crop" alt="Metodología ágil Scrum" onclick="openLightbox(this.src)" />
+              <img class="gallery-img" src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=400&h=260&fit=crop" alt="Ciclo de desarrollo" onclick="openLightbox(this.src)" />
+            </div>
+            <div class="evidence-actions">
+              <a href="https://www.scrum.org/resources/what-is-scrum" target="_blank" class="btn btn-outline"><i data-lucide="external-link"></i>Scrum.org</a>
+              <a href="https://agilemanifesto.org/iso/es/manifesto.html" target="_blank" class="btn btn-primary"><i data-lucide="link"></i>Manifiesto Ágil</a>
+              <a href="https://www.atlassian.com/es/agile/kanban" target="_blank" class="btn btn-sky"><i data-lucide="link"></i>Kanban Atlassian</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEMANA 14 -->
+    <div class="week-card animate-in" id="semana-14" data-keywords="implementación sistemas información despliegue migración testing gestión cambio">
+      <div class="week-card-header" onclick="toggleWeek(this)">
+        <div class="week-number">S14</div>
+        <div class="week-card-meta">
+          <div class="week-card-title">Implementación de Sistemas de Información</div>
+          <div class="week-card-topics">Despliegue · Migración de datos · Capacitación · Change Management · Go-live</div>
+          <div class="week-card-tags">
+            <span class="tag">Implementación</span>
+            <span class="tag">Migración</span>
+            <span class="tag">Go-live</span>
+          </div>
+        </div>
+        <svg class="week-card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="week-card-body">
+        <div class="week-card-content">
+          <div class="evidence-block">
+            <div class="evidence-title"><i data-lucide="rocket"></i>Informe de Proyecto: Implementación de un ERP en Pyme Peruana</div>
+            <div class="evidence-date"><i data-lucide="calendar"></i>Fecha: 9 de junio de 2026</div>
+            <div class="evidence-desc">
+              La implementación de un Sistema de Información es la fase más crítica y costosa del SDLC. Las estrategias de conversión incluyen: <strong>conversión directa</strong> (big bang), <strong>conversión paralela</strong> (sistemas antiguo y nuevo operan simultáneamente), <strong>conversión piloto</strong> (en una unidad organizativa primero) y <strong>conversión por fases</strong>. Los factores clave de éxito son: compromiso de la alta dirección (sponsorship ejecutivo), gestión activa del cambio organizacional, capacitación del usuario final, calidad de los datos migrados y pruebas exhaustivas (UAT – User Acceptance Testing). El 55% de los proyectos ERP exceden el presupuesto inicial y el 40% exceden el tiempo planificado (Panorama Consulting, 2025).
+            </div>
+            <div class="evidence-gallery">
+              <img class="gallery-img" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&h=260&fit=crop" alt="Equipo implementando software" onclick="openLightbox(this.src)" />
+              <img class="gallery-img" src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=260&fit=crop" alt="Capacitación de usuarios" onclick="openLightbox(this.src)" />
+              <img class="gallery-img" src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=260&fit=crop" alt="Go-live del sistema" onclick="openLightbox(this.src)" />
+            </div>
+            <div class="evidence-actions">
+              <a href="https://www.panorama-consulting.com/erp-report/" target="_blank" class="btn btn-outline"><i data-lucide="external-link"></i>ERP Report 2025</a>
+              <a href="https://www.prosci.com/methodology" target="_blank" class="btn btn-primary"><i data-lucide="link"></i>Prosci Change Mgmt</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEMANA 15 -->
+    <div class="week-card animate-in" id="semana-15" data-keywords="proyecto práctico sistemas información desarrollo propuesta solución tecnológica">
+      <div class="week-card-header" onclick="toggleWeek(this)">
+        <div class="week-number">S15</div>
+        <div class="week-card-meta">
+          <div class="week-card-title">Proyecto Práctico de Sistemas de Información</div>
+          <div class="week-card-topics">Proyecto integrador · Propuesta de solución · Prototipo · Documentación técnica</div>
+          <div class="week-card-tags">
+            <span class="tag">Proyecto</span>
+            <span class="tag">Prototipo</span>
+            <span class="tag">Documentación</span>
+          </div>
+        </div>
+        <svg class="week-card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="week-card-body">
+        <div class="week-card-content">
+          <div class="evidence-block">
+            <div class="evidence-title"><i data-lucide="folder-kanban"></i>Proyecto: Sistema de Información Gerencial para Empresa Comercial</div>
+            <div class="evidence-date"><i data-lucide="calendar"></i>Fecha: 16 de junio de 2026</div>
+            <div class="evidence-desc">
+              <strong>Título del proyecto:</strong> "Diseño e implementación de un Sistema de Información Gerencial para la Empresa Comercializadora Andina SAC – Huancayo".<br/>
+              <strong>Objetivo:</strong> Desarrollar un SIG que integre módulos de ventas, inventario, compras y reportes gerenciales en tiempo real para mejorar la toma de decisiones de la gerencia.<br/>
+              <strong>Tecnologías:</strong> Backend en Python/Django, base de datos PostgreSQL, frontend en React.js, despliegue en AWS EC2, dashboards con Chart.js.<br/>
+              <strong>Metodología:</strong> Scrum con sprints quincenales, backlog priorizado por el Product Owner (gerente de la empresa).<br/>
+              <strong>Entregables:</strong> Documento de requisitos (SRS), prototipo funcional, manual de usuario y manual técnico de instalación.
+            </div>
+            <div class="evidence-gallery">
+              <img class="gallery-img" src="https://images.unsplash.com/photo-1607798748738-b15c40d33d57?w=400&h=260&fit=crop" alt="Prototipo de sistema" onclick="openLightbox(this.src)" />
+              <img class="gallery-img" src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&h=260&fit=crop" alt="Código del sistema" onclick="openLightbox(this.src)" />
+              <img class="gallery-img" src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=260&fit=crop" alt="Desarrollo web del proyecto" onclick="openLightbox(this.src)" />
+            </div>
+            <div class="evidence-actions">
+              <a href="https://github.com/" target="_blank" class="btn btn-outline"><i data-lucide="github"></i>Repositorio GitHub</a>
+              <a href="https://aws.amazon.com/es/ec2/" target="_blank" class="btn btn-primary"><i data-lucide="cloud"></i>AWS EC2</a>
+              <a href="https://reactjs.org/" target="_blank" class="btn btn-sky"><i data-lucide="code-2"></i>React.js</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEMANA 16 -->
+    <div class="week-card animate-in" id="semana-16" data-keywords="exposición proyecto sustentación presentación final defensa">
+      <div class="week-card-header" onclick="toggleWeek(this)">
+        <div class="week-number">S16</div>
+        <div class="week-card-meta">
+          <div class="week-card-title">Exposición del Proyecto Práctico</div>
+          <div class="week-card-topics">Sustentación · Presentación final · Defensa oral · Retroalimentación del docente</div>
+          <div class="week-card-tags">
+            <span class="tag">Exposición</span>
+            <span class="tag">Sustentación</span>
+            <span class="tag">Final</span>
+          </div>
+        </div>
+        <svg class="week-card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="week-card-body">
+        <div class="week-card-content">
+          <div class="evidence-block">
+            <div class="evidence-title"><i data-lucide="presentation"></i>Sustentación Final: Proyecto Integrador GSI 2026-I</div>
+            <div class="evidence-date"><i data-lucide="calendar"></i>Fecha: 23 de junio de 2026</div>
+            <div class="evidence-desc">
+              La sustentación final consistió en la presentación oral y demostrativa del proyecto integrador ante el Dr. Magno Teófilo Baldeón Tovar y compañeros del curso. La exposición cubrió: contexto del problema y justificación de la solución, arquitectura técnica del sistema (diagrama de componentes, diagrama de base de datos, diagrama de despliegue), demostración en vivo del prototipo funcional con sus módulos operativos, análisis de costos y retorno de inversión (ROI) proyectado, y lecciones aprendidas durante el desarrollo. El proyecto recibió retroalimentación positiva destacando la integración de prácticas ITIL en la gestión del proyecto y el uso de metodologías ágiles para adaptarse a los cambios de requisitos del cliente.
+            </div>
+            <div class="evidence-gallery">
+              <img class="gallery-img" src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=400&h=260&fit=crop" alt="Presentación académica" onclick="openLightbox(this.src)" />
+              <img class="gallery-img" src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=400&h=260&fit=crop" alt="Sustentación universitaria" onclick="openLightbox(this.src)" />
+              <img class="gallery-img" src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=400&h=260&fit=crop" alt="Equipo de proyecto" onclick="openLightbox(this.src)" />
+            </div>
+            <div class="evidence-actions">
+              <a href="https://docs.google.com/presentation" target="_blank" class="btn btn-outline"><i data-lucide="presentation"></i>Slides Google</a>
+              <a href="https://github.com/" target="_blank" class="btn btn-primary"><i data-lucide="github"></i>Código Final GitHub</a>
+              <a href="https://drive.google.com/drive/my-drive" target="_blank" class="btn btn-sky"><i data-lucide="download"></i>Informe Final PDF</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pie de página -->
+    <footer style="text-align:center;padding:40px 0 20px;color:var(--text-light);font-size:12px;border-top:1px solid rgba(26,108,222,.1);margin-top:40px;">
+      <p>© 2026 · Portafolio Académico de Evidencias · Gerencia de Sistemas de Información</p>
+      <p style="margin-top:6px;">Universidad Peruana Los Andes · Ingeniería de Sistemas y Computación · 2026-I</p>
+    </footer>
+
+  </div><!-- /.content-area -->
+</div><!-- /.main-content -->
+
+<!-- Botón volver arriba -->
+<button id="back-to-top" aria-label="Volver al inicio">
+  <i data-lucide="chevrons-up"></i>
+</button>
+
+<!-- ================================================================
+     SCRIPTS
+     ================================================================ -->
+<script>
+  /* ----------------------------------------------------------------
+     1. INICIALIZAR ÍCONOS LUCIDE
+     ---------------------------------------------------------------- */
+  document.addEventListener('DOMContentLoaded', () => {
+    lucide.createIcons();
+    animateProgress(100);
+    renderSidebarWeekLinks();
+    setupSearch();
+    setupTheme();
+    setupSidebar();
+    setupBackToTop();
+    setupLightbox();
+  });
+
+  /* ----------------------------------------------------------------
+     2. BARRA DE PROGRESO ANIMADA
+     ---------------------------------------------------------------- */
+  function animateProgress(pct) {
+    const bar = document.getElementById('progress-bar');
+    const label = document.getElementById('progress-pct');
+    setTimeout(() => {
+      bar.style.width = pct + '%';
+      label.textContent = pct + '%';
+    }, 400);
+  }
+
+  /* ----------------------------------------------------------------
+     3. ACORDEÓN: ABRIR/CERRAR SEMANA
+     ---------------------------------------------------------------- */
+  function toggleWeek(headerEl) {
+    const card = headerEl.closest('.week-card');
+    const isOpen = card.classList.contains('open');
+
+    // Cerrar todos (comportamiento acordeón)
+    document.querySelectorAll('.week-card.open').forEach(c => c.classList.remove('open'));
+
+    // Abrir el seleccionado (a menos que ya estuviera abierto)
+    if (!isOpen) {
+      card.classList.add('open');
+      // Scroll suave para que quede visible
+      setTimeout(() => {
+        card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 150);
+    }
+  }
+
+  /* ----------------------------------------------------------------
+     4. BUSCADOR DINÁMICO
+     ---------------------------------------------------------------- */
+  function setupSearch() {
+    const input = document.getElementById('search-input');
+    input.addEventListener('input', () => {
+      const q = input.value.toLowerCase().trim();
+      const cards = document.querySelectorAll('.week-card');
+      let found = 0;
+
+      cards.forEach(card => {
+        const text = (
+          card.querySelector('.week-card-title')?.textContent +
+          card.querySelector('.week-card-topics')?.textContent +
+          (card.dataset.keywords || '')
+        ).toLowerCase();
+
+        if (!q || text.includes(q)) {
+          card.style.display = '';
+          found++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      // Mensaje si no hay resultados
+      let noRes = document.getElementById('no-results');
+      if (!noRes) {
+        noRes = document.createElement('div');
+        noRes.id = 'no-results';
+        noRes.className = 'no-results';
+        noRes.innerHTML = '<i data-lucide="search-x"></i><p>No se encontraron semanas con ese término.<br/>Intenta con otra palabra clave.</p>';
+        document.querySelector('.content-area').appendChild(noRes);
+      }
+      noRes.style.display = (found === 0 && q) ? 'block' : 'none';
+      if (found === 0 && q) lucide.createIcons({ nodes: [noRes] });
+    });
+  }
+
+  /* ----------------------------------------------------------------
+     5. MODO OSCURO / CLARO
+     ---------------------------------------------------------------- */
+  function setupTheme() {
+    const btn = document.getElementById('theme-toggle');
+    const icon = document.getElementById('theme-icon');
+    const label = document.getElementById('theme-label');
+    const saved = localStorage.getItem('gsi-theme') || 'light';
+    applyTheme(saved, icon, label);
+
+    btn.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      applyTheme(next, icon, label);
+      localStorage.setItem('gsi-theme', next);
+    });
+  }
+
+  function applyTheme(theme, icon, label) {
+    document.documentElement.setAttribute('data-theme', theme);
+    if (theme === 'dark') {
+      icon.setAttribute('data-lucide', 'moon');
+      label.textContent = 'Modo claro';
+    } else {
+      icon.setAttribute('data-lucide', 'sun');
+      label.textContent = 'Modo oscuro';
+    }
+    lucide.createIcons({ nodes: [icon.parentElement] });
+  }
+
+  /* ----------------------------------------------------------------
+     6. SIDEBAR MÓVIL
+     ---------------------------------------------------------------- */
+  function setupSidebar() {
+    const hamburger = document.getElementById('hamburger');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+
+    hamburger.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+      overlay.classList.toggle('open');
+    });
+
+    overlay.addEventListener('click', () => {
+      sidebar.classList.remove('open');
+      overlay.classList.remove('open');
+    });
+  }
+
+  /* ----------------------------------------------------------------
+     7. SCROLL A SECCIÓN (desde sidebar)
+     ---------------------------------------------------------------- */
+  function scrollToSection(id) {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    // Cerrar sidebar en móvil
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('sidebar-overlay').classList.remove('open');
+
+    // Marcar nav activo
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    event.currentTarget.classList.add('active');
+  }
+
+  /* ----------------------------------------------------------------
+     8. BOTÓN VOLVER ARRIBA
+     ---------------------------------------------------------------- */
+  function setupBackToTop() {
+    const btn = document.getElementById('back-to-top');
+    window.addEventListener('scroll', () => {
+      btn.classList.toggle('visible', window.scrollY > 400);
+    });
+    btn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  /* ----------------------------------------------------------------
+     9. LIGHTBOX DE IMÁGENES
+     ---------------------------------------------------------------- */
+  function openLightbox(src) {
+    const lb = document.getElementById('lightbox');
+    const img = document.getElementById('lightbox-img');
+    img.src = src;
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function setupLightbox() {
+    const lb = document.getElementById('lightbox');
+    const closeBtn = document.getElementById('lightbox-close');
+
+    closeBtn.addEventListener('click', closeLightbox);
+    lb.addEventListener('click', e => { if (e.target === lb) closeLightbox(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  /* ----------------------------------------------------------------
+     10. RENDERIZAR LINKS DE SEMANAS EN EL SIDEBAR
+     ---------------------------------------------------------------- */
+  function renderSidebarWeekLinks() {
+    const nav = document.querySelector('.sidebar-nav');
+    const section = document.createElement('div');
+    const weeks = [
+      { n:1, title:'La Información y los SI' },
+      { n:2, title:'Computación en la Nube' },
+      { n:3, title:'Administración en la Nube' },
+      { n:4, title:'Infraestructura de TI' },
+      { n:5, title:'BI y Bases de Datos' },
+      { n:6, title:'Estructura SIG' },
+      { n:7, title:'ERP, CRM, SCM, SIG' },
+      { n:8, title:'Nube Híbrida' },
+      { n:9, title:'Gobierno de TI' },
+      { n:10, title:'Gestión de Servicios' },
+      { n:11, title:'Diseño del Servicio' },
+      { n:12, title:'Gestión del Cambio' },
+      { n:13, title:'SDLC y Metodologías' },
+      { n:14, title:'Implementación de SI' },
+      { n:15, title:'Proyecto Práctico' },
+      { n:16, title:'Exposición Final' },
+    ];
+
+    weeks.forEach(w => {
+      const div = document.createElement('div');
+      div.className = 'nav-item';
+      div.innerHTML = `<span style="background:linear-gradient(135deg,#38b6ff,#1a6cde);color:#fff;border-radius:5px;padding:2px 6px;font-size:10px;font-weight:700;min-width:24px;text-align:center;">S${w.n}</span> ${w.title}`;
+      div.onclick = () => {
+        document.getElementById(`semana-${w.n}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        document.getElementById('sidebar').classList.remove('open');
+        document.getElementById('sidebar-overlay').classList.remove('open');
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        div.classList.add('active');
+      };
+      section.appendChild(div);
+    });
+
+    nav.appendChild(section);
+    lucide.createIcons();
+  }
+
+  /* ----------------------------------------------------------------
+     11. ANIMACIÓN DE ENTRADA AL HACER SCROLL (Intersection Observer)
+     ---------------------------------------------------------------- */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.week-card, .stat-card, .section-header').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity .5s ease, transform .5s ease';
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>
